@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#FFFFFF"
+   stroke="#FFFFFF"
+   transform="rotate(0)"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="house.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#000000"
+     bordercolor="#000000"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showborder="true"
+     inkscape:zoom="2.3383333"
+     inkscape:cx="200.78403"
+     inkscape:cy="64.789736"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <g
+     id="SVGRepo_bgCarrier"
+     stroke-width="0" />
+  <g
+     id="SVGRepo_tracerCarrier"
+     stroke-linecap="round"
+     stroke-linejoin="round" />
+  <g
+     id="SVGRepo_iconCarrier"
+     style="fill:#000000"
+     transform="translate(-4.0215511,-3.1488531)">
+    <g
+       id="g1"
+       style="fill:#000000">
+      <path
+         id="Vector"
+         d="m 20.066821,11.298511 c 0,-0.53616 -4.25e-4,-0.801102 -0.0654,-1.0503 -0.05767,-0.22074 -0.15208,-0.4286942 -0.28,-0.6172595 -0.144423,-0.2127825 -0.345012,-0.3890327 -0.7472,-0.74081 l -4.8,-4.2 c -0.746682,-0.6538376 -1.1199,-0.97977 -1.54,-1.10401 -0.3702,-0.10947 -0.764814,-0.1095616 -1.135,0 -0.419784,0.1242539 -0.792981,0.447778 -1.5380399,1.10262 l -4.80159,4.20139 C 4.7577825,9.2441441 4.5566345,9.416811 4.4125211,9.6309515 4.2848119,9.82072 4.1890738,10.02593 4.1317911,10.248211 c -0.064634,0.250938 -0.06497,0.510291 -0.06497,1.0503 v 5.548 c 0,0.936999 0.018594,0.94086 0.018594,1.310817 0,1.696052 -0.00993,1.684189 0.8415841,1.684189 0.4492936,0 1.207091,0.0014 2.1395581,0.0053 0.9324771,0.0039 1.3222148,-0.0053 1.76588,-0.0053 1.2312827,0 1.2228617,-0.0055 1.2223637,-1.289945 0,-0.449281 0.01202,-0.767309 0.01202,-1.705161 v -1 c 0,-1.113799 0.896381,-1.993463 2,-2 1.10362,-0.0065 2,0.887629 2,2 v 1 c 0,0.936944 0.001,1.322239 0.001,1.7653 0,1.23608 0.01602,1.233999 1.233399,1.233999 0.367166,0 0.835279,0.01296 1.7653,0.0011 0.930121,-0.01186 1.799313,-0.0053 2.193555,-0.0053 0.811211,0 0.801451,0.03833 0.801451,-1.229807 z"
+         stroke="#ffffff"
+         stroke-width="0"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         style="fill:#ffffff"
+         sodipodi:nodetypes="cccccccccscssccsccsssssccsccc" />
+    </g>
+  </g>
+</svg>

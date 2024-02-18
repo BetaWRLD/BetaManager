@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   
+   viewBox="-1 0 8 8"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="pause-1006-svgrepo-com.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.01625"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <title
+     id="title1">pause [#1006]</title>
+  <desc
+     id="desc1">Created with Sketch.</desc>
+  <defs
+     id="defs1" />
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="Dribbble-Light-Preview"
+       transform="translate(-227.000000, -3765.000000)"
+       fill="#000000">
+      <g
+         id="icons"
+         transform="translate(56.000000, 160.000000)">
+        <path
+           d="m 172,3605 c -0.552,0 -1,0.448 -1,1 v 6 c 0,0.552 0.448,1 1,1 0.552,0 1,-0.448 1,-1 v -6 c 0,-0.552 -0.448,-1 -1,-1 m 5,1 v 6 c 0,0.552 -0.448,1 -1,1 -0.552,0 -1,-0.448 -1,-1 v -6 c 0,-0.552 0.448,-1 1,-1 0.552,0 1,0.448 1,1"
+           id="pause-[#1006]"
+           style="fill:#ffffff" />
+      </g>
+    </g>
+  </g>
+</svg>

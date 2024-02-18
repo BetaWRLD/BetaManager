@@ -1,0 +1,62 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
+    <!--  Background Colors  -->
+    <Color x:Key="primaryBackColor">#4F4F4F</Color>
+    <Color x:Key="secondaryBackColor">#212121</Color>
+    <Color x:Key="secondaryBackColorAlpha">#00212121</Color>
+    <Color x:Key="mainColorColor">#FAF9F6</Color>
+    <Color x:Key="ActiveColorNormal">#426BE8</Color>
+    <!--  Color Palette  -->
+    <SolidColorBrush x:Key="ActiveText" Color="White" />
+    <SolidColorBrush x:Key="MidText" Color="#A7A6B3" />
+    <SolidColorBrush x:Key="InActiveText" Color="#9B9B9B" />
+
+    <SolidColorBrush x:Key="ActiveColor" Color="#426BE8" />
+    <SolidColorBrush x:Key="HoverColor" Color="#1a48d5" />
+    <SolidColorBrush x:Key="GreenColor" Color="#59B157" />
+    <SolidColorBrush x:Key="RedColor" Color="#DE0000" />
+    <SolidColorBrush x:Key="RedColorHover" Color="#AA0000" />
+
+    <SolidColorBrush x:Key="MainColor" Color="#14141C" />
+    <SolidColorBrush x:Key="MainColorLighter" Color="#21212E" />
+    <SolidColorBrush x:Key="SecondaryColor" Color="#1B1B26" />
+    <SolidColorBrush x:Key="ActiveRadioButton" Color="#0F4480" />
+
+
+
+    <SolidColorBrush x:Key="primaryBackColorSolid" Color="#121924" />
+    <SolidColorBrush x:Key="secondaryBackColorSolid" Color="#171033" />
+    <SolidColorBrush x:Key="mainColor" Color="#FAF9F6" />
+    <!--  Font Colors  -->
+    <SolidColorBrush x:Key="titleColor1" Color="#D1D1D1" />
+    <SolidColorBrush x:Key="titleColor2" Color="White" />
+    <SolidColorBrush x:Key="titleColor3" Color="#EAEAEA" />
+    <SolidColorBrush x:Key="plainTextColor" Color="#A0A0A0" />
+    <!--  Panel Colors  -->
+    <SolidColorBrush x:Key="panelColor" Color="#171033" />
+    <SolidColorBrush x:Key="panelColorLight" Color="#515151" />
+    <!--  Button Colors  -->
+    <!--  TextBox Colors  -->
+    <FontFamily x:Key="Light">/BetaManager;component/Resources/Light.ttf#Unageo Light</FontFamily>
+    <FontFamily x:Key="Regular">/BetaManager;component/Resources/Regular.ttf#Unageo Regular</FontFamily>
+    <FontFamily x:Key="Medium">/BetaManager;component/Resources/Medium.ttf#Unageo Medium</FontFamily>
+    <FontFamily x:Key="SemiBold">/BetaManager;component/Resources/SemiBold.ttf#Unageo SemiBold</FontFamily>
+    <FontFamily x:Key="Bold">/BetaManager;component/Resources/Bold.ttf#Unageo Bold</FontFamily>
+    <FontFamily x:Key="ExtraBold">/BetaManager;component/Resources/ExtraBold.ttf#Unageo ExtraBold</FontFamily>
+    <FontFamily x:Key="Black">/BetaManager;component/Resources/Black.ttf#Unageo Black</FontFamily>
+
+
+    <!--  Define a DynamicResource key for the DrawingImage  -->
+    <DrawingImage x:Key="SVGIMAGE">
+        <DrawingImage.Drawing>
+            <DrawingGroup Opacity="1">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Geometry="F1 M22.189789,7.6945963z M0,0z M80.609994,47.625L78.315568,47.625 76.65676,45.092863 74.966946,47.625 72.775872,47.625 75.504379,43.74928 72.832716,39.930404 75.121974,39.930404 76.723939,42.328183 78.372412,39.930404 80.568653,39.930404 77.881487,43.671766z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <!--  Etc  -->
+</ResourceDictionary>

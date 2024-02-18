@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="piechart.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#000000"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.01625"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M 6.22209,4.60105 C 6.66665,4.304 7.13344,4.04636 7.6171,3.82976 8.98898,3.21539 9.67491,2.9082 10.5875,3.4994 11.5,4.09061 11.5,5.06041 11.5,7.00001 v 1.5 c 0,1.88559 0,2.82839 0.5858,3.41419 C 12.6716,12.5 13.6144,12.5 15.5,12.5 H 17 c 1.9396,0 2.9094,0 3.5006,0.9125 0.5912,0.9126 0.284,1.5985 -0.3304,2.9704 -0.2166,0.4837 -0.4742,0.9505 -0.7712,1.395 -1.0439,1.5623 -2.5276,2.7799 -4.2635,3.499 -1.7359,0.719 -3.646,0.9071 -5.48885,0.5406 C 7.80383,21.4509 6.11109,20.5461 4.78249,19.2175 3.45389,17.8889 2.5491,16.1962 2.18254,14.3534 1.81598,12.5105 2.00412,10.6004 2.72315,8.86451 3.44218,7.12861 4.65982,5.64492 6.22209,4.60105 Z"
+     stroke="#1C274C"
+     stroke-width="1.5"
+     id="path1"
+     style="stroke:#ffffff;fill:#ffffff;fill-opacity:1" />
+  <path
+     d="M 21.446,7.06901 C 20.6342,5.00831 18.9917,3.36579 16.931,2.55398 15.3895,1.94669 14,3.34316 14,5.00002 v 4 C 14,9.5523 14.4477,10 15,10 h 4 c 1.6569,0 3.0533,-1.38945 2.446,-2.93099 z"
+     stroke="#1C274C"
+     stroke-width="1.5"
+     id="path2"
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff" />
+</svg>

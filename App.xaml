@@ -1,0 +1,21 @@
+﻿<Application
+    x:Class="BetaManager.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+    xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+    xmlns:local="clr-namespace:BetaManager"
+    Startup="ApplicationStart">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type FrameworkElement}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/UIColors.xaml" />
+                <ResourceDictionary Source="/Styles/UIStyles.xaml" />
+                <ResourceDictionary Source="/Styles/TextboxTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

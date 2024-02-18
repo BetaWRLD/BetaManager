@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+
+    <BeforePack>$(BeforePack);SetPackProperties</BeforePack>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    <UseMemoryExtensions>true</UseMemoryExtensions>
+  </PropertyGroup>
+
+  <!-- Ensure this library is referenced as a dependency -->
+  <ItemGroup>
+    <PackageReference Include="Mono.Nat" Version="[3.0,4.0)" ExcludeAssets="compile" />
+  </ItemGroup>
+  
+  <!-- NuGet related properties. We need to run this as part of the 'PackDependsOn' dependencies
+      to ensure our GitInfo related properties have been calculated correctly. -->
+  <Target Name="SetPackProperties" DependsOnTargets="SetAssemblyVersion">
+    <PropertyGroup>
+      <Authors>Alan McGovern,Olivier Dufour</Authors>
+      <PackageDescription>
+        MonoTorrent is a cross platform and open source implementation of the BitTorrent protocol. It supports many advanced features such as Encryption, DHT, Peer Exchange, Web Seeding and Magnet Links.
+        Notable features include:
+        -Encryption
+        -Dht
+        -Peer Exchange (uTorrent style)
+        -Local Peer Discovery
+        -Web Seeding (getright style)
+        -Magnet Links / Metadata download
+        -IPV6
+        -FAST Extensions
+        -Sparse files (NTFS file system)
+        -Multi-tracker torrents
+        -Compact tracker responses
+        -IP Address white listing / black listing
+        -Fast Resume
+        -Initial Seeding (super seeding)
+        -Selective downloading
+        -Prioritised downloading
+        -Full bittorrent tracker
+        -Dynamic request queue size
+        -Memory Cache
+        -Endgame mode
+        -Per torrent and global rate limiting
+        -Individual file relocation
+      </PackageDescription>
+      <PackageId>MonoTorrent</PackageId>
+      <PackageLicenseFile>LICENSE</PackageLicenseFile>
+      <PackageProjectUrl>https://github.com/alanmcgovern/monotorrent</PackageProjectUrl>
+      <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+      <PackageVersion>$(MonoTorrentFileVersion)$(MonoTorrentReleaseSuffix)</PackageVersion>
+      <PackageTags>bittorrent;torrent;library;tracker;dht;c#;csharp;dotnet;.NET;p2p</PackageTags>
+
+      <IncludeSource>true</IncludeSource>
+      <IncludeSymbols>true</IncludeSymbols>
+      <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+      <RepositoryType>git</RepositoryType>
+      <RepositoryBranch>$(GitBranch)</RepositoryBranch>
+      <RepositoryCommit>$(GitSha)</RepositoryCommit>
+      <RepositoryUrl>https://github.com/alanmcgovern/monotorrent</RepositoryUrl>
+
+      <Copyright>Alan McGovern, Gregor Burger</Copyright>
+    </PropertyGroup>
+  </Target>
+
+  <ItemGroup>
+    <Content Include="..\..\LICENSE" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MonoTorrent\MonoTorrent.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\MonoTorrent.BEncoding\MonoTorrent.BEncoding.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\MonoTorrent.Factories\MonoTorrent.Factories.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\MonoTorrent.Messages\MonoTorrent.Messages.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\MonoTorrent.PieceWriter\MonoTorrent.PieceWriter.csproj" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Condition="$(TargetFramework) == 'netstandard2.0'" Include="System.Memory" Version="4.5.1" />
+  </ItemGroup>
+
+   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
+    </ItemGroup>
+  </Target>
+</Project>

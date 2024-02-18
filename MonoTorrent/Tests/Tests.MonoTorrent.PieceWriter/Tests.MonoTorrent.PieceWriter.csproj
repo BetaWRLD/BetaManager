@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MonoTorrent.PieceWriter\MonoTorrent.PieceWriter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Tests.MonoTorrent.Client\TaskExtensions.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="..\..\MonoTorrent.Client\MonoTorrent.Client\Managers\TorrentFileInfo.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="..\..\MonoTorrent.Client\MonoTorrent\TorrentFile.cs" Link="Linked\%(FileName)%(Extension)" />
+  </ItemGroup>
+
+</Project>

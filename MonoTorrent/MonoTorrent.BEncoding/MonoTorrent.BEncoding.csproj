@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;netcoreapp3.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+    <ReferenceReusableTasks>false</ReferenceReusableTasks>
+    <UseMemoryExtensions>true</UseMemoryExtensions>
+    <AllowUnsafeBlocks Condition="$(TargetFramework) == 'netstandard2.0'">true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Condition="$(TargetFramework) == 'netstandard2.0'" Include="System.Memory" Version="4.5.1" />
+  </ItemGroup>
+
+</Project>

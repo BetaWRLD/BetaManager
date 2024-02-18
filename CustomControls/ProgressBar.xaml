@@ -1,0 +1,24 @@
+﻿<UserControl
+    x:Class="BetaManager.Views.CustomProgressBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Viewbox>
+        <Grid Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}" Height="{Binding Height, RelativeSource={RelativeSource AncestorType=UserControl}}">
+            <Grid>
+                <Rectangle
+                    Name="ProgressBarTrack"
+                    Width="320"
+                    Fill="Black"
+                    RadiusX="5"
+                    RadiusY="5" />
+                <Rectangle
+                    Name="ProgressBarFill"
+                    Width="0"
+                    HorizontalAlignment="Left"
+                    Fill="White"
+                    RadiusX="5"
+                    RadiusY="5" />
+            </Grid>
+        </Grid>
+    </Viewbox>
+</UserControl>

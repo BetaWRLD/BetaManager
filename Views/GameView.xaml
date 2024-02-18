@@ -1,0 +1,736 @@
+﻿<UserControl
+    x:Class="BetaManager.Views.GameView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:BetaManager.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:BetaManager.ViewModels"
+    d:DesignHeight="610"
+    d:DesignWidth="1050"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <viewModel:GameViewModel />
+    </UserControl.DataContext>
+    <Border>
+        <Grid KeyboardNavigation.TabNavigation="None">
+            <ScrollViewer
+                Margin="0,25,0,55"
+                VerticalAlignment="Top"
+                KeyboardNavigation.TabNavigation="None"
+                ScrollChanged="ScrollViewer_ScrollChanged"
+                VerticalScrollBarVisibility="Auto">
+                <ScrollViewer.PanningMode>Both</ScrollViewer.PanningMode>
+                <ScrollViewer.PanningDeceleration>0.05</ScrollViewer.PanningDeceleration>
+                <StackPanel>
+                    <Border Height="360" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="202.5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    x:Name="ImageContainer"
+                                    Width="161.25"
+                                    Height="215"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    CornerRadius="5">
+                                    <Border.Background>
+                                        <ImageBrush x:Name="ImageDisplay" ImageSource="{Binding CurrentGame.Picture}" />
+                                    </Border.Background>
+                                </Border>
+                                <Grid
+                                    Grid.Column="1"
+                                    Width="600"
+                                    Height="215"
+                                    Margin="40,40,40,40"
+                                    HorizontalAlignment="Right">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border
+                                        x:Name="FirstScreenshot"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Margin="2"
+                                        CornerRadius="5"
+                                        Cursor="Hand"
+                                        MouseLeftButtonDown="FirstScreenshot_MouseLeftButtonDown">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding CurrentGame.Screenshots[0]}" />
+                                        </Border.Background>
+                                    </Border>
+                                    <Border
+                                        x:Name="SecondScreenshot"
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="2"
+                                        CornerRadius="5"
+                                        Cursor="Hand"
+                                        MouseLeftButtonDown="SecondScreenshot_MouseLeftButtonDown">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding CurrentGame.Screenshots[1]}" />
+                                        </Border.Background>
+                                    </Border>
+                                    <Border
+                                        x:Name="ThirdScreenshot"
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Margin="2"
+                                        CornerRadius="5"
+                                        Cursor="Hand"
+                                        MouseLeftButtonDown="ThirdScreenshot_MouseLeftButtonDown">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding CurrentGame.Screenshots[2]}" />
+                                        </Border.Background>
+                                    </Border>
+                                    <Border
+                                        x:Name="FourthScreenshot"
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Margin="2"
+                                        CornerRadius="5"
+                                        Cursor="Hand"
+                                        MouseLeftButtonDown="FourthScreenshot_MouseLeftButtonDown">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding CurrentGame.Screenshots[3]}" />
+                                        </Border.Background>
+                                    </Border>
+                                    <Border
+                                        x:Name="FifthScreenshot"
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="2"
+                                        CornerRadius="5"
+                                        Cursor="Hand"
+                                        MouseLeftButtonDown="FifthScreenshot_MouseLeftButtonDown">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding CurrentGame.Screenshots[4]}" />
+                                        </Border.Background>
+                                    </Border>
+                                    <Border
+                                        x:Name="SixithScreenshot"
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Margin="2"
+                                        CornerRadius="5"
+                                        Cursor="Hand"
+                                        MouseLeftButtonDown="SixithScreenshot_MouseLeftButtonDown">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding CurrentGame.Screenshots[5]}" />
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                            <StackPanel
+                                Margin="3,0,0,20"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom">
+                                <WrapPanel>
+                                    <TextBlock
+                                        FontFamily="{DynamicResource Medium}"
+                                        FontSize="24"
+                                        Foreground="{DynamicResource ActiveText}"
+                                        Text="{Binding CurrentGame.Name}"
+                                        TextWrapping="Wrap" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <TextBlock
+                                        Margin="3,0,0,0"
+                                        FontFamily="{DynamicResource Medium}"
+                                        FontSize="16"
+                                        Foreground="{DynamicResource MidText}"
+                                        Text="{Binding CurrentGame.Developer}"
+                                        TextWrapping="Wrap" />
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,0,20,15"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Orientation="Horizontal">
+                                <fa:IconBlock
+                                    Name="FirstStar"
+                                    Cursor="Hand"
+                                    FontSize="18"
+                                    Foreground="{Binding CurrentGame.FirstStarColor}"
+                                    Icon="Star"
+                                    IconFont="{Binding CurrentGame.FirstStarFont}"
+                                    MouseDown="IconBlock_MouseDown" />
+                                <fa:IconBlock
+                                    Name="SecondStar"
+                                    Margin="4,0,0,0"
+                                    Cursor="Hand"
+                                    FontSize="18"
+                                    Foreground="{Binding CurrentGame.SecondStarColor}"
+                                    Icon="Star"
+                                    IconFont="{Binding CurrentGame.SecondStarFont}"
+                                    MouseDown="IconBlock_MouseDown" />
+                                <fa:IconBlock
+                                    Name="ThirdStar"
+                                    Margin="4,0,0,0"
+                                    Cursor="Hand"
+                                    FontSize="18"
+                                    Foreground="{Binding CurrentGame.ThirdStarColor}"
+                                    Icon="Star"
+                                    IconFont="{Binding CurrentGame.ThirdStarFont}"
+                                    MouseDown="IconBlock_MouseDown" />
+                                <fa:IconBlock
+                                    Name="FourthStar"
+                                    Margin="4,0,0,0"
+                                    Cursor="Hand"
+                                    FontSize="18"
+                                    Foreground="{Binding CurrentGame.FourthStarColor}"
+                                    Icon="Star"
+                                    IconFont="{Binding CurrentGame.FourthStarFont}"
+                                    MouseDown="IconBlock_MouseDown" />
+                                <fa:IconBlock
+                                    Name="FifthStar"
+                                    Margin="4,0,0,0"
+                                    Cursor="Hand"
+                                    FontSize="18"
+                                    Foreground="{Binding CurrentGame.FifthStarColor}"
+                                    Icon="Star"
+                                    IconFont="{Binding CurrentGame.FifthStarFont}"
+                                    MouseDown="IconBlock_MouseDown" />
+                                <WrapPanel
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom">
+                                    <TextBlock
+                                        FontFamily="{DynamicResource Medium}"
+                                        FontSize="18"
+                                        Foreground="{DynamicResource ActiveText}"
+                                        Text="{Binding CurrentGame.Rating}"
+                                        TextWrapping="Wrap" />
+                                </WrapPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Border
+                        Height="100"
+                        Margin="0,10,10,10"
+                        BorderThickness="1.5"
+                        CornerRadius="10">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="#A0DDDC" />
+                                <GradientStop Offset="1" Color="#A0DDFF" />
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <Grid
+                            Height="70"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="22"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Version"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource MidText}"
+                                    Text="{Binding CurrentGame.Version}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="22"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Developer"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock
+                                        FontFamily="{DynamicResource Regular}"
+                                        FontSize="15"
+                                        Foreground="{DynamicResource MidText}"
+                                        Text="{Binding CurrentGame.Developer}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="22"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Added on"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource MidText}"
+                                    Text="{Binding CurrentGame.Date}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="22"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Size"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    x:Name="SizeText"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource MidText}"
+                                    Text="{Binding CurrentGame.Size}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" HorizontalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="22"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Genres"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource MidText}"
+                                            Text="{Binding CurrentGame.Genre}"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap" />
+                                        <Border VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop Offset="0" Color="Black" />
+                                                    <GradientStop Offset="0.6" Color="#00000000" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Grid>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="5" HorizontalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="22"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Credits"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    x:Name="CreditText"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Cursor="Hand"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="15"
+                                    Foreground="{DynamicResource MidText}"
+                                    MouseLeftButtonDown="CreditText_MouseLeftButtonDown"
+                                    Text="{Binding CurrentGame.Credits}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <TextBlock
+                        Margin="3,0,0,0"
+                        FontFamily="{DynamicResource Medium}"
+                        FontSize="28"
+                        Foreground="{DynamicResource ActiveText}"
+                        Text="Game Requirements"
+                        TextWrapping="Wrap" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock
+                                Height="Auto"
+                                Margin="3,0,0,0"
+                                FontFamily="{DynamicResource Regular}"
+                                FontSize="12"
+                                Foreground="{DynamicResource InActiveText}"
+                                Text="MINIMUM REQUIREMENTS:"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Height="Auto"
+                                Margin="3,0,0,0"
+                                FontFamily="{DynamicResource Regular}"
+                                FontSize="12"
+                                Foreground="{DynamicResource MidText}"
+                                Text="{Binding CurrentGame.RequirementsMinimum}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock
+                                Height="Auto"
+                                Margin="3,0,0,0"
+                                FontFamily="{DynamicResource Regular}"
+                                FontSize="12"
+                                Foreground="{DynamicResource InActiveText}"
+                                Text="RECOMMENDED REQUIREMENTS:"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Height="Auto"
+                                Margin="3,0,0,0"
+                                FontFamily="{DynamicResource Regular}"
+                                FontSize="12"
+                                Foreground="{DynamicResource MidText}"
+                                Text="{Binding CurrentGame.RequirementsRecommended}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                    <Border Height="10" />
+                    <Border>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="3,0,0,0"
+                                FontFamily="{DynamicResource Medium}"
+                                FontSize="28"
+                                Foreground="{DynamicResource ActiveText}"
+                                Text="Game Description"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                x:Name="DescriptionText"
+                                Margin="3,0,0,0"
+                                FontFamily="{DynamicResource Regular}"
+                                FontSize="15"
+                                Foreground="{DynamicResource MidText}"
+                                TextWrapping="Wrap" />
+                            <Button
+                                x:Name="ExpandDescription"
+                                Width="Auto"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Click="ExpandDescription_Click"
+                                Cursor="Hand"
+                                Style="{StaticResource controlButton}"
+                                Tag="{DynamicResource mainColor}">
+                                <TextBlock
+                                    Margin="3,0,0,0"
+                                    Cursor="Hand"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="15"
+                                    FontStyle="Italic"
+                                    Foreground="{DynamicResource titleColor1}"
+                                    Text="Show more..."
+                                    TextWrapping="Wrap" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="20" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Ellipse
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Left"
+                            FlowDirection="LeftToRight">
+                            <Ellipse.Fill>
+                                <ImageBrush
+                                    x:Name="ProfilePicture"
+                                    ImageSource="{Binding Users.ProfilePicture}"
+                                    Stretch="UniformToFill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <Border
+                            Grid.Column="1"
+                            MinHeight="30"
+                            Margin="10,0,10,0"
+                            BorderThickness="0,0,0,1">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#0099EE" />
+                                    <GradientStop Offset="1" Color="#00FFFF" />
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Grid>
+                                <TextBox
+                                    x:Name="CommentText"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="14"
+                                    IsEnabled="{Binding NotGuest}"
+                                    MaxLength="1024"
+                                    MaxLines="15"
+                                    PreviewKeyDown="CommentText_PreviewKeyDown"
+                                    Style="{DynamicResource NoHoverTextBox}" />
+                                <TextBlock
+                                    Margin="3,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource SemiBold}"
+                                    Foreground="{DynamicResource MidText}"
+                                    IsHitTestVisible="False"
+                                    Text="Add a comment...">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=CommentText}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                    <Setter Property="FontFamily" Value="{DynamicResource Regular}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=CommentText, Path=IsFocused}" Value="True">
+                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                    <Setter Property="FontFamily" Value="{DynamicResource Regular}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Button
+                                    x:Name="PostComment"
+                                    Width="15"
+                                    Height="15"
+                                    Margin="0,0,5,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Click="PostComment_Click"
+                                    Cursor="Hand"
+                                    IsEnabled="{Binding NotGuest}"
+                                    Style="{StaticResource controlButton}"
+                                    Tag="{DynamicResource mainColor}">
+                                    <fa:IconImage
+                                        Width="20"
+                                        Foreground="{DynamicResource titleColor1}"
+                                        Icon="PaperPlane"
+                                        IconFont="Solid" />
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ItemsControl x:Name="CommentsSection">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    MinHeight="75"
+                                    Margin="0,10,10,0"
+                                    Background="#11EDEDED"
+                                    CornerRadius="5">
+                                    <StackPanel>
+                                        <Grid>
+                                            <StackPanel Margin="10" Orientation="Horizontal">
+                                                <Ellipse
+                                                    Width="30"
+                                                    Height="30"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FlowDirection="LeftToRight">
+                                                    <Ellipse.Fill>
+                                                        <ImageBrush ImageSource="{Binding ProfilePicture}" Stretch="UniformToFill" />
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+                                                <StackPanel>
+                                                    <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                                        <TextBlock
+                                                            FontFamily="{DynamicResource Light}"
+                                                            FontSize="12"
+                                                            Foreground="{DynamicResource ActiveText}"
+                                                            Text="{Binding Name}" />
+                                                        <TextBlock
+                                                            Margin="5,0,0,0"
+                                                            FontFamily="{DynamicResource Light}"
+                                                            FontSize="12"
+                                                            Foreground="{DynamicResource titleColor1}"
+                                                            Text="{Binding Date}" />
+                                                    </StackPanel>
+                                                    <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                                        <TextBlock
+                                                            FontFamily="{DynamicResource Light}"
+                                                            FontSize="10"
+                                                            Foreground="{DynamicResource titleColor1}"
+                                                            Text="@" />
+                                                        <TextBlock
+                                                            Margin="2,0,0,0"
+                                                            FontFamily="{DynamicResource Light}"
+                                                            FontSize="10"
+                                                            Foreground="{DynamicResource titleColor1}"
+                                                            Text="{Binding Username}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Button
+                                                x:Name="DeleteComment"
+                                                Margin="10"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Click="DeleteComment_Click"
+                                                Cursor="Hand"
+                                                IsEnabled="{Binding IsAuthor}"
+                                                IsHitTestVisible="{Binding IsAuthor}"
+                                                Style="{DynamicResource iconButton}"
+                                                Tag="{DynamicResource mainColor}"
+                                                Visibility="{Binding TrashVisibility}">
+                                                <fa:IconImage
+                                                    Width="12"
+                                                    Foreground="DimGray"
+                                                    Icon="TrashAlt"
+                                                    IsEnabled="{Binding DataContext.NotGuest}">
+                                                    <fa:IconImage.Style>
+                                                        <Style TargetType="fa:IconImage">
+                                                            <Style.Triggers>
+                                                                <MultiTrigger>
+                                                                    <MultiTrigger.Conditions>
+                                                                        <Condition Property="IsMouseOver" Value="True" />
+                                                                        <Condition Property="IsEnabled" Value="True" />
+                                                                    </MultiTrigger.Conditions>
+                                                                    <MultiTrigger.EnterActions>
+                                                                        <BeginStoryboard>
+                                                                            <Storyboard>
+                                                                                <ColorAnimation
+                                                                                    Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                                                                    To="Red"
+                                                                                    Duration="0:0:0.15" />
+                                                                            </Storyboard>
+                                                                        </BeginStoryboard>
+                                                                    </MultiTrigger.EnterActions>
+                                                                    <MultiTrigger.ExitActions>
+                                                                        <BeginStoryboard>
+                                                                            <Storyboard>
+                                                                                <ColorAnimation
+                                                                                    Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                                                                    To="DimGray"
+                                                                                    Duration="0:0:0.15" />
+                                                                            </Storyboard>
+                                                                        </BeginStoryboard>
+                                                                    </MultiTrigger.ExitActions>
+                                                                </MultiTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </fa:IconImage.Style>
+                                                </fa:IconImage>
+                                            </Button>
+                                        </Grid>
+                                        <TextBlock
+                                            Margin="10,0,10,0"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="14"
+                                            Foreground="{DynamicResource ActiveText}"
+                                            Text="{Binding Comment}"
+                                            TextWrapping="Wrap" />
+                                        <StackPanel Margin="10,5,0,5" Orientation="Horizontal">
+                                            <Button
+                                                x:Name="LikeButton"
+                                                VerticalAlignment="Center"
+                                                Click="LikeButton_Click"
+                                                IsEnabled="{Binding DataContext.NotGuest, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Style="{DynamicResource iconButton}"
+                                                Tag="{DynamicResource mainColor}">
+                                                <fa:IconImage
+                                                    Width="15"
+                                                    Foreground="{Binding LikeButtonColor}"
+                                                    Icon="Heart" />
+                                            </Button>
+                                            <TextBlock
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontFamily="{DynamicResource Bold}"
+                                                FontSize="12"
+                                                Foreground="DimGray"
+                                                Text="{Binding Likes}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Border Height="50" />
+                </StackPanel>
+            </ScrollViewer>
+            <Border Height="20" VerticalAlignment="Top">
+                <Button
+                    x:Name="BackButton"
+                    HorizontalAlignment="Left"
+                    Click="BackButton_Click"
+                    Style="{StaticResource iconButton}"
+                    Tag="{DynamicResource ActiveColor}">
+                    <fa:IconImage
+                        Foreground="{DynamicResource ActiveColor}"
+                        Icon="ArrowLeft"
+                        Style="{StaticResource iconButtonIcon}" />
+                </Button>
+            </Border>
+            <Border
+                Height="80"
+                        Margin="0,0,0,10"
+                VerticalAlignment="Bottom"
+                KeyboardNavigation.TabNavigation="None">
+                <Grid>
+                    <Button
+                        x:Name="DownloadButton"
+                        Height="40"
+                        Margin="0,0,60,0"
+                        VerticalAlignment="Bottom"
+                        Click="DownloadButton_Click"
+                        Content="Download"
+                        KeyboardNavigation.TabNavigation="None"
+                        Style="{DynamicResource ThemeButton}"
+                        Tag="{DynamicResource ActiveColor}" />
+                    <Button
+                        x:Name="CopyURL"
+                        Width="45"
+                        Height="40"
+                        Margin="0,0,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Click="CopyURL_Click"
+                        KeyboardNavigation.TabNavigation="None"
+                        Style="{DynamicResource ThemeButton}"
+                        Tag="{DynamicResource MidText}">
+                        <fa:IconBlock
+                            FontSize="18"
+                            Foreground="White"
+                            Icon="Copy" />
+                    </Button>
+                </Grid>
+            </Border>
+            <ContentControl x:Name="CurrentView" />
+        </Grid>
+    </Border>
+</UserControl>

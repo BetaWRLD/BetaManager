@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#000000"
+   
+   viewBox="0 0 24 24"
+   id="processor"
+   data-name="Flat Line"
+   class="icon flat-line"
+   version="1.1"
+   sodipodi:docname="processor-svgrepo-com.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#000000"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.35929863"
+     inkscape:cx="752.85563"
+     inkscape:cy="816.86924"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="processor" />
+  <rect
+     style="fill:#000000;stroke:#000000;stroke-width:4.13376"
+     id="rect1"
+     width="7.1592212"
+     height="8.0457497"
+     x="8.4970522"
+     y="8.0586987"
+     ry="0.041747451"
+     rx="2.7905636" />
+  <path
+     id="primary"
+     d="M 12,6 V 3 m 4,3 V 4 M 8,6 V 4 m 10,8 h 3 m -3,4 h 2 M 18,8 h 2 m -8,10 v 3 M 8,18 v 2 m 8,-2 v 2 M 6,12 H 3 M 6,8 H 4 m 2,8 H 4 m 14,1 V 7 A 1,1 0 0 0 17,6 H 7 A 1,1 0 0 0 6,7 v 10 a 1,1 0 0 0 1,1 h 10 a 1,1 0 0 0 1,-1 z m -4,-7 h -4 v 4 h 4 z"
+     style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+  <g
+     id="g1">
+    <path
+       id="secondary"
+       d="M 17,6 H 7 A 1,1 0 0 0 6,7 v 10 a 1,1 0 0 0 1,1 h 10 a 1,1 0 0 0 1,-1 V 7 A 1,1 0 0 0 17,6 Z m -3,8 h -4 v -4 h 4 z"
+       style="mix-blend-mode:darken;fill:#000000;stroke-width:2;opacity:0" />
+  </g>
+  <rect
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:0.99999"
+     id="rect2"
+     width="2.9641085"
+     height="2.7971163"
+     x="10.583118"
+     y="10.624866"
+     rx="0.8140862"
+     ry="0.041747451" />
+</svg>

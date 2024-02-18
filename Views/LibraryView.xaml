@@ -1,0 +1,324 @@
+﻿<UserControl
+    x:Class="BetaManager.Views.LibraryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:BetaManager.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:BetaManager.ViewModels"
+    d:DesignHeight="610"
+    d:DesignWidth="1050"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+
+
+    <UserControl.DataContext>
+        <viewModel:LibraryViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources />
+    <Grid>
+        <Grid x:Name="MainGrid">
+            <ScrollViewer
+                x:Name="scrollViewer"
+                Margin="0,60,0,0"
+                Background="Transparent"
+                CanContentScroll="False"
+                PanningDeceleration="1"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                VirtualizingPanel.ScrollUnit="Pixel">
+                <StackPanel>
+                    <ItemsControl x:Name="ListViewProducts" ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Border
+                                        Width="225"
+                                        Margin="10"
+                                        Background="Transparent"
+                                        CornerRadius="5"
+                                        Style="{DynamicResource BorderHoverStyle}">
+                                        <Grid>
+                                            <Border>
+                                                <StackPanel>
+                                                    <Border Width="225" Height="300">
+                                                        <Border Margin="0" CornerRadius="5">
+                                                            <Border.Background>
+                                                                <ImageBrush ImageSource="{Binding Picture}" Stretch="UniformToFill" />
+                                                            </Border.Background>
+                                                            <Border.Effect>
+                                                                <DropShadowEffect
+                                                                    BlurRadius="5"
+                                                                    Opacity="0.5"
+                                                                    RenderingBias="Quality"
+                                                                    ShadowDepth="0"
+                                                                    Color="#1FFFFFFF" />
+                                                            </Border.Effect>
+                                                            <Grid>
+                                                                <Border Background="#55000000" />
+                                                                <Border
+                                                                    Height="70"
+                                                                    Margin="-1"
+                                                                    VerticalAlignment="Bottom"
+                                                                    CornerRadius="5">
+                                                                    <Border.Background>
+                                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                                            <GradientStop Offset="1" Color="Black" />
+                                                                            <GradientStop Offset="0" Color="#00000000" />
+                                                                        </LinearGradientBrush>
+                                                                    </Border.Background>
+
+                                                                    <Grid Margin="10,0,0,10">
+                                                                        <TextBlock
+                                                                            MaxWidth="205"
+                                                                            HorizontalAlignment="Left"
+                                                                            VerticalAlignment="Bottom"
+                                                                            FontFamily="{DynamicResource Medium}"
+                                                                            FontSize="17"
+                                                                            Foreground="{DynamicResource titleColor3}"
+                                                                            Text="{Binding Name}" />
+                                                                    </Grid>
+                                                                </Border>
+                                                                <StackPanel
+                                                                    Margin="0,7,7,0"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Top"
+                                                                    Orientation="Horizontal">
+                                                                    <Button
+                                                                        x:Name="GameOptions"
+                                                                        Background="Transparent"
+                                                                        Click="GameOptions_Click"
+                                                                        Cursor="Hand"
+                                                                        Style="{DynamicResource iconButton}">
+                                                                        <fa:IconBlock
+                                                                            Cursor="Hand"
+                                                                            FontSize="14"
+                                                                            Icon="EllipsisVertical">
+                                                                            <fa:IconBlock.Style>
+                                                                                <Style TargetType="fa:IconBlock">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource ActiveText}" />
+                                                                                    <Style.Triggers>
+                                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                                            <Setter Property="Foreground" Value="{DynamicResource MidText}" />
+                                                                                        </Trigger>
+                                                                                    </Style.Triggers>
+                                                                                </Style>
+                                                                            </fa:IconBlock.Style>
+                                                                        </fa:IconBlock>
+                                                                    </Button>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </Border>
+                                                    </Border>
+                                                    <StackPanel Margin="0,7,0,0" Orientation="Vertical">
+                                                        <Grid>
+                                                            <TextBlock
+                                                                FontFamily="{DynamicResource Medium}"
+                                                                FontSize="12"
+                                                                Foreground="{DynamicResource InActiveText}"
+                                                                Text="Played time: " />
+                                                            <TextBlock
+                                                                HorizontalAlignment="Right"
+                                                                FontFamily="{DynamicResource Medium}"
+                                                                FontSize="12"
+                                                                Foreground="{DynamicResource InActiveText}"
+                                                                Text="{Binding PlayedTimeString}" />
+                                                        </Grid>
+                                                        <Grid>
+                                                            <TextBlock
+                                                                FontFamily="{DynamicResource Medium}"
+                                                                FontSize="12"
+                                                                Foreground="{DynamicResource InActiveText}"
+                                                                Text="Size: " />
+                                                            <TextBlock
+                                                                x:Name="SizeText"
+                                                                HorizontalAlignment="Right"
+                                                                FontFamily="{DynamicResource Medium}"
+                                                                FontSize="12"
+                                                                MouseLeftButtonDown="SizeText_MouseLeftButtonDown">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Setter Property="Foreground" Value="{Binding IsReady, StringFormat='{}{0}'}" />
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding FolderAvailable}" Value="False">
+                                                                                <Setter Property="Foreground" Value="{DynamicResource ActiveColor}" />
+                                                                                <Setter Property="TextDecorations" Value="Underline" />
+                                                                                <Setter Property="Text" Value="Set folder" />
+                                                                                <Setter Property="Cursor" Value="Hand" />
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding FolderAvailable}" Value="True">
+                                                                                <Setter Property="Foreground" Value="{DynamicResource InActiveText}" />
+                                                                                <Setter Property="Text" Value="{Binding SizeOnDiskString}" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                                                        <Button
+                                                            x:Name="GameButton"
+                                                            Width="225"
+                                                            Height="40"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Bottom"
+                                                            Click="GameButton_Click"
+                                                            Cursor="Hand">
+                                                            <Grid>
+                                                                <fa:IconBlock FontSize="20" Foreground="{DynamicResource mainColor}">
+                                                                    <fa:IconBlock.Style>
+                                                                        <Style TargetType="fa:IconBlock">
+                                                                            <Setter Property="Icon" Value="{Binding IsReady, StringFormat='{}{0}'}" />
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsReady}" Value="False">
+                                                                                    <Setter Property="Icon" Value="FolderBlank" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                                                    <Setter Property="Icon" Value="Play" />
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </fa:IconBlock.Style>
+                                                                </fa:IconBlock>
+                                                            </Grid>
+                                                            <Button.Style>
+                                                                <Style TargetType="Button">
+                                                                    <Setter Property="Background" Value="{Binding IsReady, StringFormat='{}{0}'}" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding IsReady}" Value="False">
+                                                                            <Setter Property="Background" Value="#1FFFFFFF" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                                            <Setter Property="Background" Value="#1FFFFFFF" />
+                                                                        </DataTrigger>
+                                                                        <MultiDataTrigger>
+                                                                            <MultiDataTrigger.Conditions>
+                                                                                <Condition Binding="{Binding IsReady}" Value="True" />
+                                                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
+                                                                            </MultiDataTrigger.Conditions>
+                                                                            <Setter Property="Background" Value="{DynamicResource HoverColor}" />
+                                                                        </MultiDataTrigger>
+                                                                        <MultiDataTrigger>
+                                                                            <MultiDataTrigger.Conditions>
+                                                                                <Condition Binding="{Binding IsReady}" Value="False" />
+                                                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
+                                                                            </MultiDataTrigger.Conditions>
+                                                                            <Setter Property="Background" Value="{DynamicResource panelColorLight}" />
+                                                                        </MultiDataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Button.Style>
+
+
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border
+                                                                        Margin="-0.25"
+                                                                        Background="{TemplateBinding Background}"
+                                                                        CornerRadius="5">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Height="60" VerticalAlignment="Top">
+                <Button
+                    x:Name="AddGame"
+                    Width="30"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Click="AddGame_Click"
+                    Cursor="Hand"
+                    Style="{StaticResource controlButton}"
+                    Tag="{DynamicResource mainColor}">
+                    <fa:IconImage
+                        Width="20"
+                        Foreground="{DynamicResource ActiveColor}"
+                        Icon="Plus"
+                        IconFont="{Binding FourthStarFont}" />
+                </Button>
+                <Grid Grid.Row="0" Margin="5,0,50,0">
+                    <Border
+                        Height="35"
+                        VerticalAlignment="Center"
+                        Background="#99FFFFFF"
+                        CornerRadius="5"
+                        Opacity="0.3" />
+                    <TextBox
+                        x:Name="SearchTextBox"
+                        Width="{Binding ActualWidth, ElementName=SearchBorder}"
+                        Margin="40,0,5,0"
+                        VerticalAlignment="Center"
+                        CaretBrush="{DynamicResource MidText}"
+                        FontFamily="{DynamicResource Medium}"
+                        FontSize="14"
+                        Foreground="{DynamicResource ActiveText}"
+                        Style="{DynamicResource NoHoverTextBox}"
+                        TextChanged="SearchTextBox_TextChanged" />
+                    <TextBlock
+                        Margin="40,0,0,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{DynamicResource Medium}"
+                        FontSize="16"
+                        Foreground="{DynamicResource MidText}"
+                        IsHitTestVisible="False"
+                        Text="Search">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Setter Property="FontFamily" Value="{DynamicResource Regular}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=SearchTextBox, Path=IsFocused}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Setter Property="FontFamily" Value="{DynamicResource Regular}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <fa:IconImage
+                        Width="20"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FlowDirection="RightToLeft"
+                        Foreground="#44FFFFFF"
+                        Icon="Search"
+                        IconFont="{Binding FourthStarFont}" />
+                </Grid>
+            </Grid>
+            <Border
+                x:Name="TopBorder"
+                Background="#00000000"
+                CornerRadius="5"
+                Visibility="Hidden">
+                <Border.Effect>
+                    <BlurEffect Radius="0" />
+                </Border.Effect>
+            </Border>
+        </Grid>
+        <ContentControl x:Name="CurrentView" Margin="0,5,0,0" />
+    </Grid>
+</UserControl>

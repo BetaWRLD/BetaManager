@@ -1,0 +1,426 @@
+﻿<UserControl
+    x:Class="BetaManager.Views.GamesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:BetaManager.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:BetaManager.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <viewModel:GamesViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid x:Name="MainGrid">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="5,0,20,0">
+                        <Border
+                            Height="35"
+                            VerticalAlignment="Center"
+                            Background="#99FFFFFF"
+                            CornerRadius="5"
+                            Opacity="0.3" />
+                        <TextBox
+                            x:Name="SearchTextBox"
+                            Width="{Binding ActualWidth, ElementName=SearchBorder}"
+                            Margin="40,0,5,0"
+                            VerticalAlignment="Center"
+                            CaretBrush="{DynamicResource MidText}"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="14"
+                            Foreground="{DynamicResource ActiveText}"
+                            PreviewKeyDown="SearchTextBox_PreviewKeyDown"
+                            Style="{DynamicResource NoHoverTextBox}" />
+                        <TextBlock
+                            Margin="40,0,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="16"
+                            Foreground="{DynamicResource MidText}"
+                            IsHitTestVisible="False"
+                            Text="Search">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="FontFamily" Value="{DynamicResource Regular}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=SearchTextBox, Path=IsFocused}" Value="True">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Setter Property="FontFamily" Value="{DynamicResource Regular}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Button
+                            x:Name="SearchButton"
+                            Width="30"
+                            Height="30"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Click="SearchButton_Click"
+                            Cursor="Hand"
+                            Style="{StaticResource controlButton}"
+                            Tag="{DynamicResource mainColor}">
+                            <fa:IconImage
+                                Width="20"
+                                FlowDirection="RightToLeft"
+                                Foreground="#44FFFFFF"
+                                Icon="Search"
+                                IconFont="{Binding FourthStarFont}" />
+                        </Button>
+                    </Grid>
+                    <ScrollViewer
+                        x:Name="scrollViewer"
+                        Grid.Row="1"
+                        Margin="0,10,0,0"
+                        Background="Transparent"
+                        VerticalScrollBarVisibility="Auto"
+                        VirtualizingPanel.ScrollUnit="Pixel">
+                        <StackPanel>
+                            <ItemsControl
+                                x:Name="ListViewProducts"
+                                HorizontalAlignment="Center"
+                                ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            Width="Auto"
+                                            Height="Auto"
+                                            CornerRadius="5"
+                                            Cursor="Hand"
+                                            Style="{DynamicResource BorderHoverStyle}">
+                                            <Button
+                                                Width="190"
+                                                Height="253"
+                                                Margin="5"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Click="Button_Click"
+                                                Cursor="Hand"
+                                                Foreground="Transparent"
+                                                Style="{DynamicResource NoHoverButtonStyle}">
+                                                <Grid>
+                                                    <Border
+                                                        Width="187"
+                                                        Height="243"
+                                                        Margin="0"
+                                                        CornerRadius="5">
+                                                        <Border.Background>
+                                                            <ImageBrush ImageSource="{Binding Picture}" />
+                                                        </Border.Background>
+
+                                                        <Border
+                                                            Background="Black"
+                                                            CornerRadius="5"
+                                                            Opacity="0.5" />
+                                                    </Border>
+                                                    <Grid Margin="10">
+                                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                            <TextBlock
+                                                                FontFamily="{DynamicResource Medium}"
+                                                                FontSize="17"
+                                                                Foreground="{DynamicResource titleColor3}"
+                                                                Text="{Binding Name}" />
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock
+                                                                    Margin="0,2,0,0"
+                                                                    FontFamily="{DynamicResource Regular}"
+                                                                    FontSize="12"
+                                                                    Foreground="LightGray"
+                                                                    Text="{Binding Credits}" />
+                                                                <TextBlock
+                                                                    Margin="5,2,0,0"
+                                                                    FontFamily="{DynamicResource Regular}"
+                                                                    FontSize="12"
+                                                                    Foreground="LightGray"
+                                                                    Text="•" />
+                                                                <TextBlock
+                                                                    Margin="5,2,0,0"
+                                                                    FontFamily="{DynamicResource Regular}"
+                                                                    FontSize="12"
+                                                                    Foreground="LightGray"
+                                                                    Text="v" />
+                                                                <TextBlock
+                                                                    Margin="0,2,0,0"
+                                                                    FontFamily="{DynamicResource Regular}"
+                                                                    FontSize="12"
+                                                                    Foreground="LightGray"
+                                                                    Text="{Binding Date}" />
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Grid>
+                                                        <Border
+                                                            Width="50"
+                                                            Height="25"
+                                                            Margin="0,0,0.5,20"
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Bottom"
+                                                            Background="{DynamicResource ActiveColor}"
+                                                            CornerRadius="5,0,0,5">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock
+                                                                    Margin="7,0,0,0"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Center"
+                                                                    FontFamily="{DynamicResource SemiBold}"
+                                                                    FontSize="12"
+                                                                    Foreground="White"
+                                                                    Text="{Binding Downloads}" />
+                                                                <Button
+                                                                    x:Name="QuickDownload"
+                                                                    Grid.Column="1"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    Click="QuickDownload_Click"
+                                                                    Style="{DynamicResource iconButton}">
+                                                                    <fa:IconBlock
+                                                                        Cursor="Hand"
+                                                                        FontSize="14"
+                                                                        Foreground="White"
+                                                                        Icon="Download">
+                                                                        <fa:IconBlock.Style>
+                                                                            <Style TargetType="fa:IconBlock">
+                                                                                <Setter Property="Effect" Value="{x:Null}" />
+                                                                                <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="Effect">
+                                                                                            <Setter.Value>
+                                                                                                <DropShadowEffect
+                                                                                                    BlurRadius="2"
+                                                                                                    Opacity="1"
+                                                                                                    ShadowDepth="0"
+                                                                                                    Color="White" />
+                                                                                            </Setter.Value>
+                                                                                        </Setter>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </fa:IconBlock.Style>
+                                                                    </fa:IconBlock>
+                                                                </Button>
+                                                            </Grid>
+                                                        </Border>
+                                                        <StackPanel
+                                                            Margin="10,0,0,25"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Bottom"
+                                                            Orientation="Horizontal">
+                                                            <fa:IconBlock
+                                                                FontSize="18"
+                                                                Foreground="{Binding FirstStarColor}"
+                                                                Icon="Star"
+                                                                IconFont="{Binding FirstStarFont}" />
+                                                            <fa:IconBlock
+                                                                Margin="4,0,0,0"
+                                                                FontSize="18"
+                                                                Foreground="{Binding SecondStarColor}"
+                                                                Icon="Star"
+                                                                IconFont="{Binding SecondStarFont}" />
+                                                            <fa:IconBlock
+                                                                Margin="4,0,0,0"
+                                                                FontSize="18"
+                                                                Foreground="{Binding ThirdStarColor}"
+                                                                Icon="Star"
+                                                                IconFont="{Binding ThirdStarFont}" />
+                                                            <fa:IconBlock
+                                                                Margin="4,0,0,0"
+                                                                FontSize="18"
+                                                                Foreground="{Binding FourthStarColor}"
+                                                                Icon="Star"
+                                                                IconFont="{Binding FourthStarFont}" />
+                                                            <fa:IconBlock
+                                                                Margin="4,0,0,0"
+                                                                FontSize="18"
+                                                                Foreground="{Binding FifthStarColor}"
+                                                                Icon="Star"
+                                                                IconFont="{Binding FifthStarFont}" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Grid>
+                                            </Button>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <Grid
+                    Grid.Row="0"
+                    Height="40"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource SemiBold}"
+                                FontSize="14"
+                                Foreground="{DynamicResource MidText}"
+                                Text="Sort by" />
+                            <ComboBox
+                                x:Name="SortingType"
+                                Width="100"
+                                Height="25"
+                                Margin="5,0,0,0"
+                                SelectedIndex="1"
+                                SelectionChanged="SortingType_SelectionChanged"
+                                Style="{DynamicResource ModernComboBoxStyle}">
+                                <ComboBoxItem>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="12"
+                                            Text="Name" />
+                                    </Grid>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource SemiBold}"
+                                            FontSize="12"
+                                            Text="Date" />
+                                    </Grid>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="12"
+                                            Text="Size" />
+                                    </Grid>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="12"
+                                            Text="Downloads" />
+                                    </Grid>
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <StackPanel
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    x:Name="AscButton"
+                                    Width="10"
+                                    Height="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Click="AscButton_Click"
+                                    Cursor="Hand"
+                                    Style="{StaticResource controlButton}"
+                                    Tag="{DynamicResource mainColor}">
+                                    <fa:IconImage
+                                        Width="10"
+                                        Foreground="{Binding ActiveColorAsc}"
+                                        Icon="ArrowUp" />
+                                </Button>
+                                <Button
+                                    x:Name="DescButton"
+                                    Width="10"
+                                    Height="10"
+                                    Margin="3,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Click="DescButton_Click"
+                                    Cursor="Hand"
+                                    Style="{StaticResource controlButton}">
+                                    <fa:IconImage
+                                        Width="10"
+                                        Foreground="{Binding ActiveColorDesc}"
+                                        Icon="ArrowDown" />
+                                </Button>
+                            </StackPanel>
+                            <Button
+                                x:Name="RefreshButton"
+                                Width="15"
+                                Height="15"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Center"
+                                Click="RefreshButton_Click"
+                                Cursor="Hand"
+                                Style="{StaticResource controlButton}">
+                                <fa:IconImage
+                                    Width="15"
+                                    Foreground="{DynamicResource plainTextColor}"
+                                    Icon="Refresh"
+                                    IconFont="{Binding FourthStarFont}" />
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <TextBlock
+                x:Name="FoundText"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="{DynamicResource Medium}"
+                FontSize="15"
+                FontWeight="Medium"
+                Foreground="White"
+                Opacity="0"
+                Text="Nothing found." />
+            <Border
+                x:Name="TopBorder"
+                Background="#00000000"
+                CornerRadius="5"
+                Visibility="Hidden">
+                <Border.Effect>
+                    <BlurEffect Radius="0" />
+                </Border.Effect>
+            </Border>
+        </Grid>
+        <TextBlock
+            x:Name="state"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontFamily="{DynamicResource Medium}"
+            FontSize="15"
+            FontWeight="Medium"
+            Foreground="White"
+            IsHitTestVisible="False"
+            Opacity="0"
+            Text="Getting game list... please wait 💘 (It's not stuck, just wait...)" />
+    </Grid>
+</UserControl>

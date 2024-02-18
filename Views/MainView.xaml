@@ -1,0 +1,722 @@
+﻿<Window
+    x:Class="BetaManager.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:BetaManager.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+    xmlns:viewModel="clr-namespace:BetaManager.ViewModels"
+    Title="BetaManager"
+    Width="1260"
+    Height="700"
+    MinWidth="1000"
+    MinHeight="560"
+    AllowsTransparency="True"
+    Background="Transparent"
+    Closed="Window_Closed"
+    Closing="Window_Closing"
+    FocusVisualStyle="{x:Null}"
+    Loaded="Window_Loaded"
+    ResizeMode="CanResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None">
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <local:HomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:GamesViewModel}">
+            <local:GamesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
+            <local:SettingsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:LibraryViewModel}">
+            <local:LibraryView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ManagerViewModel}">
+            <local:ManagerView />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid x:Name="MainGrid">
+            <Border
+                BorderBrush="#10FFFFFF"
+                BorderThickness="2"
+                CornerRadius="5">
+                <Grid MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown">
+                    <Border CornerRadius="5">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/BetaManager;component/Resources/Background.png" Stretch="UniformToFill" />
+                        </Border.Background>
+                        <Border.Effect>
+                            <BlurEffect KernelType="Gaussian" Radius="5" />
+                        </Border.Effect>
+                    </Border>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Background="#D9000000"
+                            CornerRadius="4,4,0,0"
+                            Opacity="0.95">
+                            <StackPanel
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="22"
+                                    FontWeight="Bold"
+                                    Foreground="{DynamicResource ActiveColor}"
+                                    Text="β" />
+                                <TextBlock
+                                    Margin="0.5,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    Foreground="{DynamicResource titleColor2}"
+                                    Text="ETAMANAGER" />
+                            </StackPanel>
+                        </Border>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border
+                                Grid.Column="0"
+                                Background="#D9000000"
+                                CornerRadius="0,0,0,4"
+                                Opacity="0.95">
+                                <StackPanel>
+                                    <Button
+                                        x:Name="ProfileBorder"
+                                        Height="50"
+                                        Margin="15,-15,15,15"
+                                        Click="ProfileBorder_Click"
+                                        Style="{DynamicResource controlButton}">
+                                        <Border Background="#11FFFFFF" CornerRadius="10">
+                                            <Grid>
+                                                <StackPanel
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    Orientation="Horizontal">
+                                                    <Ellipse
+                                                        Width="35"
+                                                        Height="35"
+                                                        FlowDirection="LeftToRight"
+                                                        MouseLeftButtonDown="Ellipse_MouseLeftButtonDown"
+                                                        Stroke="{DynamicResource MidText}"
+                                                        StrokeThickness="2">
+                                                        <Ellipse.Fill>
+                                                            <ImageBrush x:Name="ProfilePicture" Stretch="UniformToFill" />
+                                                        </Ellipse.Fill>
+                                                    </Ellipse>
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <TextBlock
+                                                            x:Name="DisplayName"
+                                                            Margin="5,0,0,0"
+                                                            FontFamily="{DynamicResource Medium}"
+                                                            FontSize="15"
+                                                            Foreground="{DynamicResource ActiveText}"
+                                                            Text="{Binding CurrentUserAccount.DisplayName}" />
+                                                        <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                                            <TextBlock
+                                                                FontFamily="{DynamicResource Regular}"
+                                                                FontSize="10"
+                                                                Foreground="{DynamicResource titleColor1}"
+                                                                Text="Level: " />
+                                                            <TextBlock
+                                                                Margin="0,0,0,0"
+                                                                FontFamily="{DynamicResource Regular}"
+                                                                FontSize="10"
+                                                                Foreground="{DynamicResource titleColor1}"
+                                                                Text="SOON">
+                                                                <TextBlock.Effect>
+                                                                    <DropShadowEffect
+                                                                        BlurRadius="2"
+                                                                        Direction="0"
+                                                                        ShadowDepth="0"
+                                                                        Color="White" />
+                                                                </TextBlock.Effect>
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <Button
+                                                    x:Name="GuestLoginButton"
+                                                    Margin="0,0,15,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Click="GuestLoginButton_Click"
+                                                    Cursor="Hand"
+                                                    FontFamily="{DynamicResource Regular}"
+                                                    FontSize="9"
+                                                    Foreground="White"
+                                                    IsEnabled="True"
+                                                    IsHitTestVisible="{Binding LoginButtonEnabled}"
+                                                    KeyboardNavigation.TabNavigation="None"
+                                                    Opacity="1"
+                                                    Style="{DynamicResource iconButton}"
+                                                    Visibility="{Binding LoginButtonVisibility}">
+                                                    <svgc:SvgViewbox
+                                                        Width="18"
+                                                        Margin="20,0,0,0"
+                                                        Source="Resources/Icons/login.svg" />
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                    </Button>
+                                    <RadioButton
+                                        Width="200"
+                                        Margin="10,0,0,10"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding ShowHomeViewCommand}"
+                                        IsChecked="true"
+                                        Style="{StaticResource menuButton}"
+                                        Tag="{DynamicResource mainColor}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <svgc:SvgViewbox
+                                                Width="20"
+                                                Margin="20,0,0,0"
+                                                Source="Resources/Icons/house.svg" />
+                                            <TextBlock
+                                                Margin="30,2,0,0"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource menuButtonText}"
+                                                Text="Home" />
+                                        </StackPanel>
+                                    </RadioButton>
+                                    <RadioButton
+                                        Width="200"
+                                        Margin="10,0,0,10"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding ShowGamesViewCommand}"
+                                        Style="{StaticResource menuButton}"
+                                        Tag="{DynamicResource mainColor}">
+                                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                            <svgc:SvgViewbox
+                                                Width="20"
+                                                Margin="20,0,0,0"
+                                                Source="Resources/Icons/gamepad.svg" />
+                                            <TextBlock
+                                                Margin="30,2,0,0"
+                                                Style="{StaticResource menuButtonText}"
+                                                Text="Store" />
+                                        </StackPanel>
+                                    </RadioButton>
+                                    <RadioButton
+                                        Width="200"
+                                        Margin="10,0,0,10"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding ShowLibraryViewCommand}"
+                                        Style="{StaticResource menuButton}"
+                                        Tag="{DynamicResource mainColor}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <svgc:SvgViewbox
+                                                Width="20"
+                                                Margin="20,0,0,0"
+                                                Source="Resources/Icons/book.svg" />
+                                            <TextBlock
+                                                Margin="30,2,0,0"
+                                                Style="{StaticResource menuButtonText}"
+                                                Text="Library" />
+                                        </StackPanel>
+                                    </RadioButton>
+                                    <RadioButton
+                                        Width="200"
+                                        Margin="10,0,0,10"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding ShowManagerViewCommand}"
+                                        Style="{StaticResource menuButton}"
+                                        Tag="{DynamicResource mainColor}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <svgc:SvgViewbox
+                                                Width="20"
+                                                Margin="20,0,0,0"
+                                                Source="Resources/Icons/downloads.svg" />
+                                            <TextBlock
+                                                Margin="30,0,0,0"
+                                                Style="{StaticResource menuButtonText}"
+                                                Text="Downloads" />
+                                        </StackPanel>
+
+                                    </RadioButton>
+                                    <RadioButton
+                                        x:Name="ProfileButton"
+                                        Width="200"
+                                        Margin="10,0,0,10"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding ShowProfileViewCommand}"
+                                        Style="{StaticResource menuButton}"
+                                        Tag="{DynamicResource mainColor}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <svgc:SvgViewbox
+                                                Width="20"
+                                                Margin="20,0,0,0"
+                                                Source="Resources/Icons/profile.svg" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Margin="30,0,0,0"
+                                                Style="{StaticResource menuButtonText}"
+                                                Text="Profile" />
+                                        </StackPanel>
+                                    </RadioButton>
+                                    <RadioButton
+                                        Width="200"
+                                        Margin="10,0,0,10"
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding ShowSettingsViewCommand}"
+                                        Style="{StaticResource menuButton}"
+                                        Tag="{DynamicResource mainColor}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <svgc:SvgViewbox
+                                                Width="20"
+                                                Margin="20,0,0,0"
+                                                Source="Resources/Icons/settings.svg" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Margin="30,0,0,0"
+                                                Style="{StaticResource menuButtonText}"
+                                                Text="Settings" />
+                                        </StackPanel>
+                                    </RadioButton>
+                                </StackPanel>
+                            </Border>
+                            <Grid>
+                                <StackPanel VerticalAlignment="Bottom">
+                                    <StackPanel
+                                        Margin="5,10,0,10"
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource Medium}"
+                                            FontSize="10"
+                                            FontWeight="Medium"
+                                            Foreground="{DynamicResource ActiveColor}"
+                                            Text="β" />
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource Medium}"
+                                            FontSize="10"
+                                            FontWeight="Medium"
+                                            Foreground="{DynamicResource MidText}"
+                                            Text="etaManager v2.0.0 - 2024 BETA, Inc.™" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="16"
+                                    Foreground="Red"
+                                    IsHitTestVisible="False"
+                                    Opacity="0"
+                                    Text="BETA BUILD" />
+                            </Grid>
+
+
+                            <Grid Grid.Column="1">
+                                <Border
+                                    Background="#D9000000"
+                                    CornerRadius="0,0,4,0"
+                                    Opacity="0.95" />
+                                <Border Margin="0,0,0,0" CornerRadius="0,0,4,4">
+                                    <Border>
+                                        <ContentControl
+                                            x:Name="MainCurrentChild"
+                                            Margin="10,10,0,0"
+                                            Content="{Binding CurrentChildView}" />
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+            <Border
+                x:Name="TopBorder"
+                Background="#00000000"
+                CornerRadius="5"
+                Visibility="Hidden">
+                <Border.Effect>
+                    <BlurEffect Radius="0" />
+                </Border.Effect>
+            </Border>
+        </Grid>
+
+        <Border
+            Grid.Column="2"
+            Margin="0,12,5,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            CornerRadius="5,5,0,0"
+            FlowDirection="RightToLeft"
+            MouseEnter="pnlControlBar_MouseEnter">
+
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    x:Name="btnClose"
+                    Margin="5,0,0,0"
+                    Click="btnClose_Click"
+                    MouseRightButtonDown="btnClose_MouseRightButtonDown"
+                    Style="{StaticResource controlButton}"
+                    Tag="{DynamicResource mainColor}">
+                    <fa:IconImage
+                        Width="10"
+                        Height="10"
+                        Icon="Xmark"
+                        Style="{StaticResource controlButtonIcon}" />
+                </Button>
+                <Button
+                    x:Name="btnMaximize"
+                    Margin="10,0,0,0"
+                    Click="btnMaximize_Click"
+                    Style="{StaticResource controlButton}"
+                    Tag="{DynamicResource mainColor}">
+                    <fa:IconImage
+                        Width="10"
+                        Height="10"
+                        Icon="Square"
+                        Style="{StaticResource controlButtonIcon}" />
+                </Button>
+                <Button
+                    x:Name="btnMinimize"
+                    Margin="10,0,0,0"
+                    Click="btnMinimize_Click"
+                    Style="{StaticResource controlButton}"
+                    Tag="{DynamicResource mainColor}">
+                    <fa:IconImage
+                        Width="12"
+                        Height="10"
+                        Icon="WindowMinimize"
+                        Style="{StaticResource controlButtonIcon}" />
+                </Button>
+                <StackPanel
+                    Margin="25,-1,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FlowDirection="LeftToRight"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="RedditButton"
+                        VerticalAlignment="Center"
+                        Click="RedditButton_Click"
+                        Cursor="Hand"
+                        Style="{StaticResource controlButton}"
+                        Tag="{DynamicResource mainColor}">
+                        <fa:IconImage
+                            Width="15"
+                            Icon="RedditAlien"
+                            Style="{StaticResource IconOnly}" />
+                    </Button>
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{DynamicResource Medium}"
+                        FontSize="3"
+                        FontWeight="Medium"
+                        Foreground="{DynamicResource MidText}"
+                        Text="⚫" />
+                    <Button
+                        x:Name="DiscordButton"
+                        VerticalAlignment="Center"
+                        Click="DiscordButton_Click"
+                        Cursor="Hand"
+                        Style="{StaticResource controlButton}"
+                        Tag="{DynamicResource mainColor}">
+                        <fa:IconImage
+                            Width="15"
+                            Icon="Discord"
+                            Style="{StaticResource IconOnly}" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock
+                x:Name="state"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="{DynamicResource Medium}"
+                FontSize="15"
+                FontWeight="Medium"
+                Foreground="White"
+                IsHitTestVisible="False"
+                Opacity="0"
+                Text="Hey Hottie 😉" />
+            <Grid>
+                <Button
+                    x:Name="NotifierOK"
+                    Height="30"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Click="NotifierOK_Click"
+                    Content="OK"
+                    Cursor="Hand"
+                    FontFamily="{DynamicResource SemiBold}"
+                    FontSize="11"
+                    Foreground="White"
+                    IsHitTestVisible="False"
+                    KeyboardNavigation.TabNavigation="None"
+                    Opacity="0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#1FFFFFFF" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#2FFFFFFF" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Grid>
+                        <Button
+                            x:Name="YesButton"
+                            Width="150"
+                            Height="30"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Click="YesButton_Click"
+                            Content="Login"
+                            Cursor="Hand"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="11"
+                            Foreground="White"
+                            IsHitTestVisible="False"
+                            KeyboardNavigation.TabNavigation="None"
+                            Opacity="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#1FFFFFFF" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2FFFFFFF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button
+                            x:Name="LoginButton"
+                            Width="150"
+                            Height="30"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Click="LoginButton_Click"
+                            Content="Login"
+                            Cursor="Hand"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="11"
+                            Foreground="White"
+                            IsHitTestVisible="False"
+                            KeyboardNavigation.TabNavigation="None"
+                            Opacity="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#1FFFFFFF" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2FFFFFFF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button
+                            x:Name="UpdateButton"
+                            Width="150"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            Click="UpdateButton_Click"
+                            Content="Update!"
+                            Cursor="Hand"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="11"
+                            Foreground="White"
+                            IsHitTestVisible="False"
+                            KeyboardNavigation.TabNavigation="None"
+                            Opacity="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#1FFFFFFF" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2FFFFFFF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                    <Grid>
+                        <Button
+                            x:Name="NoButton"
+                            Width="150"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            Click="NoButton_Click"
+                            Content="Continue as a guest"
+                            Cursor="Hand"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="11"
+                            Foreground="White"
+                            IsHitTestVisible="False"
+                            KeyboardNavigation.TabNavigation="None"
+                            Opacity="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#1FFFFFFF" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2FFFFFFF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button
+                            x:Name="GuestButton"
+                            Width="150"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            Click="GuestButton_Click"
+                            Content="Continue as a guest"
+                            Cursor="Hand"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="11"
+                            Foreground="White"
+                            IsHitTestVisible="False"
+                            KeyboardNavigation.TabNavigation="None"
+                            Opacity="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#1FFFFFFF" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2FFFFFFF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button
+                            x:Name="DontUpdateButton"
+                            Width="150"
+                            Height="30"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Click="DontUpdateButton_Click"
+                            Content="Nope, thanks"
+                            Cursor="Hand"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="11"
+                            Foreground="White"
+                            IsHitTestVisible="False"
+                            KeyboardNavigation.TabNavigation="None"
+                            Opacity="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#1FFFFFFF" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2FFFFFFF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <ContentControl
+            x:Name="AdditionalView"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+    </Grid>
+</Window>

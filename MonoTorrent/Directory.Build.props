@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <CI Condition="'$(CI)' == '' and '$(TF_BUILD)' == 'true'">true</CI>
+    <CI Condition="'$(CI)' == '' ">false</CI>
+
+    <NoWarn>1701;1702;1591;0419;netsdk1138</NoWarn>
+
+    <LangVersion>8.0</LangVersion>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Deterministic>true</Deterministic>
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Nullable Condition="$(TargetFramework) == 'netstandard2.0'">annotations</Nullable>
+    <Nullable Condition="$(TargetFramework) != 'netstandard2.0'">enable</Nullable>
+    
+    <!-- These are essentially junk if i'm compiling against net472/NetStandard2.0 and newer targets.
+         Most rules result in uncompilable net472 code, so let's ignore them as i don't want to wade
+         through fixing/ignoring hundreds of rules with little real-world value. -->
+    <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+    <RestoreLockedMode Condition="$(CI) and '$(RestoreLockedMode)' == ''">false</RestoreLockedMode>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GitVersionFile>version.txt</GitVersionFile>
+    <GitIgnoreBranchVersion>true</GitIgnoreBranchVersion>
+    <GitIgnoreTagVersion>true</GitIgnoreTagVersion>
+    <GitCommitsRelativeTo>$([MSBuild]::GetDirectoryNameOfFileAbove ('$(MSBuildThisFileDirectory)', 'version.txt'))\</GitCommitsRelativeTo>
+
+    <MonoTorrentABIVersion>2.0.0.0</MonoTorrentABIVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Tests.$(AssemblyName)</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

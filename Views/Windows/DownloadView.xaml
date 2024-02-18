@@ -1,0 +1,659 @@
+﻿<UserControl
+    x:Class="BetaManager.Views.DownloadView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:BetaManager.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:viewModel="clr-namespace:BetaManager.ViewModels"
+    Width="950"
+    Height="580"
+    Background="Transparent"
+    Loaded="Window_Loaded"
+    mc:Ignorable="d">
+    <Border Background="#F9313137" CornerRadius="5">
+        <Grid>
+            <Grid Margin="5,5,5,40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <StackPanel>
+                        <TextBlock
+                            x:Name="GameNameTitle"
+                            Margin="5,5,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontFamily="{DynamicResource Medium}"
+                            FontSize="11"
+                            Foreground="{DynamicResource ActiveText}" />
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource Medium}"
+                                FontSize="10"
+                                Foreground="{DynamicResource titleColor1}"
+                                Text="Download Folder" />
+                            <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                                <Grid Width="357" Height="20">
+                                    <Border
+                                        Height="20"
+                                        VerticalAlignment="Center"
+                                        Background="Gray"
+                                        BorderBrush="White"
+                                        BorderThickness="1"
+                                        CornerRadius="5"
+                                        Opacity="0.1" />
+                                    <TextBox
+                                        x:Name="DownloadFolder"
+                                        Margin="5,0,5,0"
+                                        TextChanged="DownloadFolder_TextChanged"
+                                        FontFamily="{DynamicResource Regular}"
+                                        FontSize="11"
+                                        Style="{DynamicResource NoHoverTextBox}" />
+                                </Grid>
+                                <Button
+                                    x:Name="Browse"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Click="Browse_Click"
+                                    Cursor="Hand"
+                                    IsEnabled="True"
+                                    Opacity="1">
+                                    <Grid>
+                                        <fa:IconImage
+                                            Width="12"
+                                            Foreground="{DynamicResource mainColor}"
+                                            Icon="Folder"
+                                            Style="{StaticResource iconButtonIcon}" />
+                                    </Grid>
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#1FFFFFFF" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#4FFFFFFF" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Margin="8,5,0,0" Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="SaveLocation"
+                                MinWidth="14"
+                                MinHeight="14"
+                                Background="Transparent"
+                                BorderThickness="1"
+                                IsChecked="False"
+                                Style="{DynamicResource RoundedCheckBoxStyle}">
+                                <TextBlock
+                                    Margin="20,0,0,0"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource MidText}"
+                                    Text="Save this location for future downloads" />
+                            </CheckBox>
+                        </StackPanel>
+                        <Grid Margin="5,5,0,0" VerticalAlignment="Top">
+                            <StackPanel
+                                Height="Auto"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Width="12"
+                                    Height="12"
+                                    Foreground="{DynamicResource titleColor1}"
+                                    Icon="Download"
+                                    Style="{StaticResource controlButtonIcon}" />
+                                <TextBlock
+                                    Margin="5,5,0,0"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="10"
+                                    Foreground="{DynamicResource titleColor1}"
+                                    Text="Space Required: " />
+                                <TextBlock
+                                    x:Name="GameSize"
+                                    Margin="2,5,0,0"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="11"
+                                    Foreground="{DynamicResource mainColor}" />
+                            </StackPanel>
+                            <StackPanel
+                                Height="Auto"
+                                Margin="0,0,30,0"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <fa:IconImage
+                                    Width="12"
+                                    Height="12"
+                                    Foreground="{DynamicResource titleColor1}"
+                                    Icon="HardDrive"
+                                    Style="{StaticResource controlButtonIcon}" />
+                                <TextBlock
+                                    Margin="5,5,0,0"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="10"
+                                    Foreground="{DynamicResource titleColor1}"
+                                    Text="Free Space: " />
+                                <TextBlock
+                                    x:Name="FreeSpace"
+                                    Margin="2,5,10,0"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="11"
+                                    Foreground="{DynamicResource ActiveText}" />
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource Medium}"
+                                FontSize="10"
+                                Foreground="{DynamicResource titleColor1}"
+                                Text="Game Name" />
+                            <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                                <Grid Width="383" Height="20">
+                                    <Border
+                                        Height="20"
+                                        VerticalAlignment="Center"
+                                        Background="Gray"
+                                        BorderBrush="White"
+                                        BorderThickness="1"
+                                        CornerRadius="5"
+                                        Opacity="0.1" />
+                                    <TextBox
+                                        x:Name="GameName"
+                                        Margin="5,0,5,0"
+                                        FontFamily="{DynamicResource Regular}"
+                                        FontSize="11"
+                                        Style="{DynamicResource NoHoverTextBox}" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Margin="0,10,0,0">
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="10"
+                                    Foreground="{DynamicResource titleColor1}"
+                                    Text="Download Speed Limit" />
+                                <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                                    <Grid Width="160" Height="20">
+                                        <Border
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            Background="Gray"
+                                            BorderBrush="White"
+                                            BorderThickness="1"
+                                            CornerRadius="5"
+                                            Opacity="0.1" />
+                                        <TextBox
+                                            x:Name="DownloadSpeed"
+                                            Margin="5,0,5,0"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="11"
+                                            MaxLength="12"
+                                            Style="{DynamicResource NoHoverTextBox}" />
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource Regular}"
+                                            Foreground="{DynamicResource MidText}"
+                                            IsHitTestVisible="False"
+                                            Text="∞">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=DownloadSpeed}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{DynamicResource Medium}"
+                                        FontSize="10"
+                                        Foreground="{DynamicResource titleColor1}"
+                                        Text="KB/s" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="15,10,0,0">
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Medium}"
+                                    FontSize="10"
+                                    Foreground="{DynamicResource titleColor1}"
+                                    Text="Upload Speed Limit" />
+                                <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                                    <Grid Width="160" Height="20">
+                                        <Border
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            Background="Gray"
+                                            BorderBrush="White"
+                                            BorderThickness="1"
+                                            CornerRadius="5"
+                                            Opacity="0.1" />
+                                        <TextBox
+                                            x:Name="UploadSpeed"
+                                            Margin="5,0,5,0"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="11"
+                                            MaxLength="12">
+                                            <TextBox.Style>
+                                                <Style BasedOn="{StaticResource NoHoverTextBox}" TargetType="{x:Type TextBox}">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsChecked, ElementName=Seeding}" Value="False">
+                                                            <Setter Property="IsEnabled" Value="True" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBox.Style>
+                                        </TextBox>
+
+
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource Regular}"
+                                            Foreground="{DynamicResource MidText}"
+                                            IsHitTestVisible="False"
+                                            Text="∞">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=UploadSpeed}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{DynamicResource Medium}"
+                                        FontSize="10"
+                                        Foreground="{DynamicResource titleColor1}"
+                                        Text="KB/s" />
+                                </StackPanel>
+                                <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                                    <CheckBox
+                                        x:Name="Seeding"
+                                        MinWidth="12"
+                                        Background="Transparent"
+                                        BorderThickness="1"
+                                        Style="{DynamicResource RoundedCheckBoxStyle}">
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            FontFamily="{DynamicResource Regular}"
+                                            FontSize="10"
+                                            Foreground="{DynamicResource titleColor1}"
+                                            Text="Stop seeding" />
+                                    </CheckBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="StartImmediately"
+                                MinWidth="16"
+                                Background="Transparent"
+                                BorderThickness="1"
+                                IsChecked="True"
+                                Style="{DynamicResource RoundedCheckBoxStyle}">
+                                <TextBlock
+                                    Margin="20,0,0,0"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Start download immediately" />
+                            </CheckBox>
+                        </StackPanel>
+                        <StackPanel Margin="5,10,0,0" Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="StartInstaller"
+                                MinWidth="16"
+                                Background="Transparent"
+                                BorderThickness="1"
+                                IsChecked="True"
+                                Style="{DynamicResource RoundedCheckBoxStyle}">
+                                <TextBlock
+                                    Margin="20,0,0,0"
+                                    FontFamily="{DynamicResource Regular}"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource ActiveText}"
+                                    Text="Open installer on finish" />
+                            </CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Border
+                        Margin="10,10,5,0"
+                        Background="#F0414147"
+                        CornerRadius="5">
+                        <StackPanel Orientation="Vertical">
+                            <Border
+                                Width="Auto"
+                                Height="30"
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Top"
+                                BorderBrush="Gray"
+                                CornerRadius="5,5,0,0">
+                                <Grid VerticalAlignment="Bottom">
+                                    <StackPanel
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Orientation="Horizontal">
+                                        <fa:IconBlock
+                                            Margin="12,0,0,0"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource ActiveText}"
+                                            Icon="Check" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        Margin="61,15,0,0"
+                                        HorizontalAlignment="Left"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="0,0,0,3"
+                                            HorizontalAlignment="Center"
+                                            FontFamily="{DynamicResource Regular}"
+                                            Foreground="{DynamicResource mainColor}"
+                                            Text="Name" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="0,0,25,3"
+                                            HorizontalAlignment="Center"
+                                            FontFamily="{DynamicResource Regular}"
+                                            Foreground="{DynamicResource mainColor}"
+                                            Text="Size" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                        </StackPanel>
+                    </Border>
+                    <ScrollViewer
+                        Margin="10,45,15,10"
+                        Background="Transparent"
+                        CanContentScroll="False"
+                        PanningDeceleration="1"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                        VirtualizingPanel.ScrollUnit="Pixel">
+                        <StackPanel>
+                            <ItemsControl x:Name="FilesList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Border
+                                                Height="30"
+                                                VerticalAlignment="Top"
+                                                CornerRadius="10">
+                                                <Grid>
+                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <CheckBox
+                                                            MinWidth="18"
+                                                            Margin="10,0,0,0"
+                                                            HorizontalAlignment="Right"
+                                                            Background="Transparent"
+                                                            Click="CheckBox_Click"
+                                                            Loaded="CheckBox_Loaded"
+                                                            Style="{DynamicResource RoundedCheckBoxStyle}">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <fa:IconBlock
+                                                                    Margin="10,0,10,0"
+                                                                    FontSize="16"
+                                                                    Foreground="{DynamicResource MidText}"
+                                                                    Icon="FloppyDisk" />
+                                                                <TextBlock
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    FontFamily="{DynamicResource Regular}"
+                                                                    FontSize="12"
+                                                                    Foreground="{DynamicResource ActiveText}"
+                                                                    Text="{Binding FilePath}"
+                                                                    TextTrimming="CharacterEllipsis"
+                                                                    TextWrapping="Wrap" />
+                                                            </StackPanel>
+                                                        </CheckBox>
+                                                    </StackPanel>
+                                                    <StackPanel
+                                                        Margin="0,0,10,0"
+                                                        HorizontalAlignment="Right"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Height="20"
+                                                            FontFamily="{DynamicResource Regular}"
+                                                            Foreground="{DynamicResource mainColor}"
+                                                            Text="{Binding FileSizeString}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+            <Button
+                x:Name="DownloadButton"
+                Margin="8,0,10,8"
+                VerticalAlignment="Bottom"
+                Click="DownloadButton_Click"
+                Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{DynamicResource Medium}"
+                        FontSize="12"
+                        Foreground="{DynamicResource ActiveText}"
+                        Text="Start"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <fa:IconBlock
+                        Margin="5,0,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource ActiveText}"
+                        Icon="Play" />
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#11FFFFFF" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#22FFFFFF" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Width="Auto"
+                            Height="25"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <!--<Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Margin="0,0,50,0" />
+                    <Border Grid.Column="1" Margin="50,0,0,0">
+                        <StackPanel
+                            Height="Auto"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                            <fa:IconImage
+                                Width="20"
+                                Height="20"
+                                HorizontalAlignment="Left"
+                                Foreground="{DynamicResource titleColor1}"
+                                Icon="HardDrive"
+                                Style="{StaticResource controlButtonIcon}" />
+                            <TextBlock
+                                Height="20"
+                                Margin="5,5,0,0"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource Regular}"
+                                Foreground="{DynamicResource titleColor1}"
+                                Text="Free Space: " />
+                            <TextBlock
+                                x:Name="FreeSpace"
+                                Height="20"
+                                Margin="2,5,0,0"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource Regular}"
+                                Foreground="{DynamicResource ActiveText}" />
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{DynamicResource Regular}"
+                            Foreground="{DynamicResource titleColor1}"
+                            Text="Install to:" />
+                        <Grid
+                            Grid.Column="0"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left">
+                            <Border
+                                Height="20"
+                                VerticalAlignment="Center"
+                                Background="Gray"
+                                BorderBrush="White"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                Opacity="0.1" />
+                            <TextBox
+                                x:Name="InstallDir"
+                                Width="430"
+                                Height="20"
+                                Margin="5,5,5,0"
+                                VerticalAlignment="Bottom"
+                                CaretBrush="{DynamicResource MidText}"
+                                FontFamily="{DynamicResource Medium}"
+                                FontSize="12"
+                                Foreground="{DynamicResource ActiveText}"
+                                Style="{DynamicResource NoHoverTextBox}"
+                                TextChanged="InstallDir_TextChanged" />
+                        </Grid>
+                    </StackPanel>
+                    <Button
+                        x:Name="Browse"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="50"
+                        Height="20"
+                        VerticalAlignment="Center"
+                        Click="Browse_Click"
+                        Content="Browse"
+                        FontSize="8"
+                        Style="{DynamicResource ThemeButton}"
+                        Tag="{DynamicResource plainTextColor}" />
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Button
+                        x:Name="DownloadButton"
+                        Margin="8,0,8,0"
+                        VerticalAlignment="Center"
+                        Click="DownloadButton_Click"
+                        Cursor="Hand">
+                        <fa:IconBlock
+                            FontSize="16"
+                            Foreground="{DynamicResource ActiveText}"
+                            Icon="Play" />
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#11FFFFFF" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#22FFFFFF" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+                                    Width="Auto"
+                                    Height="25"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="5">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Grid>-->
+        </Grid>
+    </Border>
+</UserControl>

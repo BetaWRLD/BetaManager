@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <MonoTorrentReleaseSuffix Condition="Exists ('$(GitCommitsRelativeTo)\alpha.txt')">-alpha.unstable</MonoTorrentReleaseSuffix>
+    <MonoTorrentReleaseSuffix Condition="Exists ('$(GitCommitsRelativeTo)\beta.txt')">-beta</MonoTorrentReleaseSuffix>
+
+    <UseGitInfo Condition="'$(UseGitInfo)' == ''">!$(ProjectName.StartsWith('Tests'))</UseGitInfo>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(ReferenceReusableTasks)' != 'false'">
+    <PackageReference Include="ReusableTasks" Version="[2.0.2,3.0)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(UseGitInfo)">
+    <PackageReference Include="GitInfo" Version="2.0.34" PrivateAssets="all" />
+    <Compile Include="$(MSBuildThisFileDirectory)GitInfoHelper.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)ICacheable.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cache.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)ThreadSwitcher.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnsureThreadPool.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)MainLoop.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)MemoryExtensions.cs" Condition="'$(UseMemoryExtensions)' == 'true'" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)BigEndianBigInteger.cs" Link="Linked\%(FileName)%(Extension)" Condition="$(ProjectName) == 'MonoTorrent.Dht' or $(ProjectName) == 'MonoTorrent.Client'" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueStopwatch.cs" Link="Linked\%(FileName)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)NullabilityAttributes.cs" Link="Linked\%(FileName)%(Extension)" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+  </ItemGroup>
+
+
+  <Target Name="SetAssemblyVersion" BeforeTargets="GetAssemblyVersion" Condition="'$(RestoreSuccess)' != 'true' Or '$(Configuration)' == 'Debug' Or !$(UseGitInfo) ">
+    <PropertyGroup>
+      <Version>0.0.0.1</Version>
+      <AssemblyVersion>$(Version)</AssemblyVersion>
+      <FileVersion Condition="'$(FileVersion)' == ''">$(Version)</FileVersion>
+      <InformationalVersion Condition="'$(InformationalVersion)' == ''">$(Version)-Debug</InformationalVersion>
+    </PropertyGroup>
+  </Target>
+
+  <!-- Restore success is in the .nuget.g.props file generated as part of msbuild /t:Restore. We do not -->
+  <!-- want this logic to run if restore hasn't been executed as the 'GitVersion' target won't exist.   -->
+  <Target Name="SetAssemblyVersion" BeforeTargets="GetAssemblyVersion" Condition="'$(RestoreSuccess)' == 'true' And '$(Configuration)' == 'Release' And $(UseGitInfo)" DependsOnTargets="GitVersion">
+    <PropertyGroup>
+      <MonoTorrentFileVersion Condition="$(MonoTorrentReleaseSuffix) == ''">$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</MonoTorrentFileVersion>
+      <MonoTorrentFileVersion Condition="$(MonoTorrentReleaseSuffix) != ''">$(GitBaseVersion)</MonoTorrentFileVersion>
+
+      <PaddedSemVerPatch>$([System.String]::Format('{0:0000}', $([System.Int32]::Parse('$(GitSemVerPatch)'))))</PaddedSemVerPatch>
+      <MonoTorrentReleaseSuffix Condition="$(MonoTorrentReleaseSuffix) != ''">$(MonoTorrentReleaseSuffix).rev$(PaddedSemVerPatch)</MonoTorrentReleaseSuffix>
+      <MonoTorrentInformationalVersion>$(MonoTorrentFileVersion)-$(GitBranch)+$(GitCommit)</MonoTorrentInformationalVersion>
+
+      <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">$(MonoTorrentABIVersion)</AssemblyVersion>
+      <FileVersion Condition="'$(FileVersion)' == ''">$(MonoTorrentFileVersion)</FileVersion>
+      <InformationalVersion Condition="'$(InformationalVersion)' == ''">$(MonoTorrentInformationalVersion)</InformationalVersion>
+    </PropertyGroup>
+  </Target>
+
+</Project>
