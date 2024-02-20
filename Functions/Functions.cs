@@ -186,11 +186,11 @@ namespace BetaManager
             }
         }
 
-        public async Task UpdateText(UIElement element, string value)
+        public async Task UpdateText(UIElement element, string value, int speed = 350)
         {
-            await FadeOut(element, 350);
+            await FadeOut(element, speed);
             ((TextBlock)element).Text = value;
-            await FadeIn(element, 350);
+            await FadeIn(element, speed);
         }
 
         public async Task FadeIn(UIElement element, int time = 150)

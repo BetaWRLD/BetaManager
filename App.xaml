@@ -11,6 +11,17 @@
             <Style TargetType="{x:Type FrameworkElement}">
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
+            <Style TargetType="{x:Type Hyperlink}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Foreground" Value="{DynamicResource ActiveColor}" />
+                <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource HoverColor}" />
+                        <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/UIColors.xaml" />
                 <ResourceDictionary Source="/Styles/UIStyles.xaml" />

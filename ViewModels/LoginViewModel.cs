@@ -7,7 +7,6 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using BetaManager.Classes;
 using BetaManager.Models;
-using BetaManager.Repositories;
 
 namespace BetaManager.ViewModels
 {
@@ -94,7 +93,6 @@ namespace BetaManager.ViewModels
         //Constructor
         public LoginViewModel()
         {
-            userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
         }

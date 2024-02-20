@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using BetaManager.Classes;
 using BetaManager.Models;
-using BetaManager.Repositories;
 using BetaManager.Views;
 using BetaManager.Views.SettingsTabs;
 using FontAwesome.Sharp;
@@ -109,7 +108,6 @@ namespace BetaManager.ViewModels
         public MainViewModel()
         {
             Instances.MainViewModel = this;
-            userRepository = new UserRepository();
             CurrentUserAccount = new UserModel();
             //Initialize commands
             ShowGamesViewCommand = new ViewModelCommand(ExecuteShowGamesViewCommand);

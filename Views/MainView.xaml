@@ -186,7 +186,7 @@
                                             </Grid>
                                         </Border>
                                     </Button>
-                                    <RadioButton
+                                    <!--<RadioButton
                                         Width="200"
                                         Margin="10,0,0,10"
                                         HorizontalAlignment="Left"
@@ -205,7 +205,7 @@
                                                 Style="{StaticResource menuButtonText}"
                                                 Text="Home" />
                                         </StackPanel>
-                                    </RadioButton>
+                                    </RadioButton>-->
                                     <RadioButton
                                         Width="200"
                                         Margin="10,0,0,10"
@@ -323,7 +323,7 @@
                                             FontSize="10"
                                             FontWeight="Medium"
                                             Foreground="{DynamicResource MidText}"
-                                            Text="etaManager v2.0.0 - 2024 BETA, Inc.™" />
+                                            Text="etaManager v2.1.0 - 2024 BETA, Inc.™" />
                                     </StackPanel>
                                 </StackPanel>
                                 <TextBlock
@@ -451,6 +451,27 @@
                             Width="15"
                             Icon="Discord"
                             Style="{StaticResource IconOnly}" />
+                    </Button>
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{DynamicResource Medium}"
+                        FontSize="3"
+                        FontWeight="Medium"
+                        Foreground="{DynamicResource MidText}"
+                        Text="⚫" />
+                    <Button
+                        x:Name="PCFocusButton"
+                        Width="14"
+                        Height="12"
+                        VerticalAlignment="Center"
+                        Click="PCFocusButton_Click"
+                        Cursor="Hand"
+                        Style="{StaticResource iconButton}"
+                        Tag="{DynamicResource mainColor}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/BetaManager;component/Resources/PC_Focus.png" />
+                        </Button.Background>
                     </Button>
                 </StackPanel>
             </StackPanel>

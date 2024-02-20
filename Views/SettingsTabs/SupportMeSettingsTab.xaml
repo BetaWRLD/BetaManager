@@ -1,0 +1,156 @@
+﻿<UserControl
+    x:Class="BetaManager.Views.SettingsTabs.SupportMeSettingsTab"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:BetaManager.Views.SettingsTabs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:BetaManager.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    FocusVisualStyle="{x:Null}"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <viewModel:GeneralSettingsTabModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border
+            Grid.Row="0"
+            Margin="30,35,35,20"
+            Background="#A0212140"
+            CornerRadius="15">
+            <TextBlock
+                Margin="20"
+                FontFamily="{DynamicResource Regular}"
+                FontSize="14"
+                Foreground="{DynamicResource titleColor1}"
+                TextAlignment="Center"
+                TextWrapping="Wrap">
+                All this work is done by one man.<LineBreak />
+                The project started back in 2023 and has always been aiming to be available to everyone for free. Though the app have a database and a website. They both need to be hosted on a VPS somewhere. The hosting is not free, and also not expensive. I currently pay 15$ each month for the hosting, and I have been paying it since the launch of the app. And I think even small help from some of you will make a change. That change could be paying for the server or supporting my work. If you like the app and enjoy using it and might want to support the developer, you can donate at the addresses below with the smallest amount. Trust me, it will make a difference.<LineBreak />
+                When you donate please contact
+                <Underline>@beta.999</Underline>
+                on discord. You will get colored username in the app and a custom role in our
+                <Hyperlink
+                    x:Name="DiscordHyberlink"
+                    NavigateUri="https://discord.gg/sbxMVMzGsF"
+                    RequestNavigate="DiscordHyberlink_RequestNavigate">
+                    discord server
+                </Hyperlink>
+                .<LineBreak />
+                Thank you all!</TextBlock>
+        </Border>
+        <Grid Grid.Row="1" Margin="0,0,0,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border
+                Width="250"
+                Height="250"
+                Background="#A0212140"
+                CornerRadius="5">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="5"
+                        FontFamily="{DynamicResource Regular}"
+                        FontSize="14"
+                        Foreground="{DynamicResource ActiveText}"
+                        Text="Monero (XMR)"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <Image
+                        Margin="55,0,55,0"
+                        VerticalAlignment="Top"
+                        Source="/BetaManager;component/Resources/XMR.png" />
+                    <TextBlock
+                        x:Name="XMRAddress"
+                        Margin="10"
+                        Cursor="Hand"
+                        FontFamily="{DynamicResource Regular}"
+                        FontSize="12"
+                        Foreground="{DynamicResource titleColor1}"
+                        MouseLeftButtonDown="XMRAddress_MouseLeftButtonDown"
+                        Text="48EKyPa8HdrK6jTvM7Z9GEBrGyDUjrMwmA69DhgqiPegNzR8LyKXmxCgtfywEfwkvFKvLpF1WsBNPjUWhZavQnZ1UJ5kxnk"
+                        TextAlignment="Center"
+                        TextDecorations="Underline"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Column="1"
+                Width="250"
+                Height="250"
+                Background="#A0212140"
+                CornerRadius="5">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="5"
+                        FontFamily="{DynamicResource Regular}"
+                        FontSize="14"
+                        Foreground="{DynamicResource ActiveText}"
+                        Text="USDT/Ethereum (USDT/ETH)"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <Image
+                        Margin="50,0,50,0"
+                        VerticalAlignment="Top"
+                        Source="/BetaManager;component/Resources/USDT_ETH.png" />
+                    <TextBlock
+                        x:Name="ETHAddress"
+                        Margin="10"
+                        Cursor="Hand"
+                        FontFamily="{DynamicResource Regular}"
+                        FontSize="12"
+                        Foreground="{DynamicResource titleColor1}"
+                        MouseLeftButtonDown="ETHAddress_MouseLeftButtonDown"
+                        Text="0xe40E8074E37fBF846D07c3cB7E865898156e172a"
+                        TextAlignment="Center"
+                        TextDecorations="Underline"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Column="2"
+                Width="250"
+                Height="250"
+                Background="#A0212140"
+                CornerRadius="5">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="5"
+                        FontFamily="{DynamicResource Regular}"
+                        FontSize="14"
+                        Foreground="{DynamicResource ActiveText}"
+                        Text="Bitcoin (BTC)"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <Image
+                        Margin="50,0,50,0"
+                        VerticalAlignment="Top"
+                        Source="/BetaManager;component/Resources/BTC.png" />
+                    <TextBlock
+                        x:Name="BTCAddress"
+                        Margin="10"
+                        Cursor="Hand"
+                        FontFamily="{DynamicResource Regular}"
+                        FontSize="12"
+                        Foreground="{DynamicResource titleColor1}"
+                        MouseLeftButtonDown="BTCAddress_MouseLeftButtonDown"
+                        Text="bc1q8nwclx084z7sh3k9sfg4c8h0h0wd5xwva50c3w"
+                        TextAlignment="Center"
+                        TextDecorations="Underline"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -163,18 +163,25 @@ namespace BetaManager.Views
             }
         }
 
-        private async void RadioButton_Click(object sender, RoutedEventArgs e)
+        private async void ProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(CurrentView.Content is ProfileSettingsTab))
+                await HideAll();
+            CurrentView.Content = Instances.ProfileSettingsTabInstance ?? new ProfileSettingsTab();
+        }
+
+        private async void GeneralButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(CurrentView.Content is GeneralSettingsTab))
                 await HideAll();
             CurrentView.Content = Instances.GeneralSettingsTabInstance ?? new GeneralSettingsTab();
         }
 
-        private async void ProfileButton_Click(object sender, RoutedEventArgs e)
+        private async void SupportButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(CurrentView.Content is ProfileSettingsTab))
+            if (!(CurrentView.Content is SupportMeSettingsTab))
                 await HideAll();
-            CurrentView.Content = Instances.ProfileSettingsTabInstance ?? new ProfileSettingsTab();
+            CurrentView.Content = new SupportMeSettingsTab();
         }
     }
 }

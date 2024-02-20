@@ -80,7 +80,7 @@ namespace BetaManager
                     Functions.RegisterProtocol();
             }
             Saved.CurrentVersion =
-                "U2FsdGVkX18vImy16HrgFdXqzt64vAx292Nf79NzkO1VsRZiEhXq0UwNWWjU81xR";
+                "U2FsdGVkX19fZx4BHPy6u4LgazK9Nh1QZMDqxYoEqkBedr6q+XjZn4wwZ2apF/51";
             Directory.CreateDirectory(Saved.SaveLocation + "Logs");
             Saved.Logger = new Logger();
             AppDomain.CurrentDomain.UnhandledException += new System.UnhandledExceptionEventHandler(

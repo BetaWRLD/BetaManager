@@ -740,5 +740,10 @@ namespace BetaManager.Views
             Instances.MainViewModel.ShowProfileViewCommand.Execute(null);
             e.Handled = true;
         }
+
+        private void PCFocusButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://twitter.com/pc_focus_/");
+        }
     }
 }

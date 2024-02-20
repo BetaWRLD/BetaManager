@@ -40,6 +40,8 @@ namespace BetaManager.Downloader
         public bool OpenInstaller { get; set; } = false;
         public bool StartImmediatly { get; set; } = true;
         public bool DontSeed { get; set; }
+        public long addBytesDownloaded;
+        public long addBytesUploaded;
 
         public DownloadClient(
             string Magnet,
@@ -187,16 +189,27 @@ namespace BetaManager.Downloader
             set { _PercentageToWidth = value; }
         }
 
+        public float Percent
+        {
+            get
+            {
+                if (DownloadSize <= 0)
+                    DownloadSize = TorrentModel.Size;
+                return (((float)(TorrentModel.BytesDownloaded + addBytesDownloaded)) / DownloadSize)
+                    * 100F;
+            }
+        }
+
         public string PercentString
         {
             get
             {
-                if (Manager.PartialProgress < 0 || double.IsNaN(Manager.PartialProgress))
+                if (Percent < 0 || float.IsNaN(Percent))
                     return "0.0%";
-                else if (Manager.PartialProgress > 100)
+                else if (Percent > 100)
                     return "100.0%";
                 else
-                    return string.Format(numberFormat, "{0:0.0}%", Manager.PartialProgress);
+                    return string.Format(numberFormat, "{0:0.0}%", Percent);
             }
         }
 

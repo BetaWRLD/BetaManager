@@ -26,7 +26,8 @@
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
                         <RadioButton
-                            Click="RadioButton_Click"
+                            x:Name="GeneralButton"
+                            Click="GeneralButton_Click"
                             IsChecked="True"
                             Style="{DynamicResource SettingsTabButton}"
                             Tag="{DynamicResource mainColor}">
@@ -35,6 +36,18 @@
                                 FontFamily="{DynamicResource Medium}"
                                 FontSize="15"
                                 Text="General" />
+                        </RadioButton>
+                        <RadioButton
+                            x:Name="SupportButton"
+                            Margin="10,0,0,0"
+                            Click="SupportButton_Click"
+                            Style="{DynamicResource SettingsTabButton}"
+                            Tag="{DynamicResource mainColor}">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                FontFamily="{DynamicResource Medium}"
+                                FontSize="15"
+                                Text="Support me" />
                         </RadioButton>
                         <!--<RadioButton
                             Margin="15,0,0,0"
