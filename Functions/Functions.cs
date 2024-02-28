@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
@@ -21,8 +22,9 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+using System.Xml.Linq;
 using BetaManager.Classes;
+using BetaManager.Downloader;
 using BetaManager.Models;
 using BetaManager.Properties;
 using Microsoft.Win32;
@@ -748,7 +750,6 @@ namespace BetaManager
             {
                 using (BinaryReader binaryReader = new BinaryReader(fileStream))
                 {
-                    // Read all data from the file into a byte array
                     fileData = binaryReader.ReadBytes((int)fileStream.Length);
                 }
             }
@@ -762,12 +763,11 @@ namespace BetaManager
 
             using (MemoryStream memoryStream = new MemoryStream(imageData))
             {
-                // Set the memory stream as the source for the BitmapImage
                 bitmapImage.BeginInit();
                 bitmapImage.StreamSource = memoryStream;
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.EndInit();
-                bitmapImage.Freeze(); // Freeze the BitmapImage to make it usable on different threads
+                bitmapImage.Freeze();
             }
 
             return bitmapImage;
@@ -818,7 +818,6 @@ namespace BetaManager
             }
             finally
             {
-                // Make sure to close the MemoryStream to release resources
                 if (outStream != null)
                 {
                     outStream.Close();
@@ -1040,7 +1039,8 @@ namespace BetaManager
             }
         }
 
-        public void SaveDownloadsToXml() { /*
+        public void SaveDownloadsToXml()
+        {
             try
             {
                 if (DownloadManager.Instance.TotalDownloads > 0)
@@ -1053,12 +1053,11 @@ namespace BetaManager
                             "Download",
                             new XElement("PercentageToWidth", download._PercentageToWidth),
                             new XElement("Path", download.Path),
-                            new XElement("Torrent", download.Torrent.ToString()),
-                            new XElement("ResumeButtonIcon", download._pauseResumeButtonIcon),
+                            new XElement("ResumeButtonIcon", download.PauseResumeButtonIcon),
                             new XElement("ID", download.ID),
                             new XElement("Name", download.Name),
                             new XElement("Picture", download.Picture),
-                            new XElement("TotalSize", download.TotalSize),
+                            new XElement("DownloadSize", download.DownloadSize),
                             new XElement(
                                 "Files",
                                 JsonConvert.SerializeObject(
@@ -1074,14 +1073,8 @@ namespace BetaManager
                                 "BytesUploaded",
                                 download.TorrentModel.BytesUploaded + download.addBytesUploaded
                             ),
-                            new XElement("RequiredSpace", download.RequiredSpace),
-                            new XElement("RepackSize", download.RepackSize),
-                            new XElement("Size", download.Size),
-                            new XElement("URL", download.Url.ToString()),
-                            new XElement("State", download.Status.ToString()),
-                            new XElement("StateText", download.StatusText),
-                            //new XElement("total_time", download.TotalElapsedTime.ToString()),
-                            new XElement("AddedOn", download.AddedOn.ToString())
+                            new XElement("Magnet", download.Magnet.ToString()),
+                            new XElement("State", download.Status.ToString())
                         );
                         root.Add(xdl);
                     }
@@ -1097,14 +1090,9 @@ namespace BetaManager
                     File.WriteAllText(Saved.SaveLocation + "Downloads.xml", "");
             }
             catch { }
-            */
         }
 
-        public async void DownloadPicsAndScreenshots(
-            List<FitGirlGameModel> games,
-            ItemsControl list,
-            Dispatcher dis
-        )
+        public async void DownloadPicsAndScreenshots(List<FitGirlGameModel> games)
         {
             int num = 0;
             foreach (FitGirlGameModel game in games)
@@ -1116,43 +1104,38 @@ namespace BetaManager
                 }
                 if (game.Picture.ToString().Length > 0)
                 {
-                    if (
-                        !File.Exists(
-                            Saved.SaveLocation
-                                + "Games\\Images\\"
-                                + Path.GetFileName(game.Picture.ToString())
-                        )
-                    )
+                    string tempFilePath =
+                        Saved.SaveLocation + "Games\\Images\\" + Path.GetRandomFileName();
+                    string finalFilePath =
+                        Saved.SaveLocation
+                        + "Games\\Images\\"
+                        + Path.GetFileName(game.Picture.ToString());
+
+                    if (File.Exists(tempFilePath))
+                    {
+                        File.Delete(tempFilePath);
+                    }
+
+                    if (!File.Exists(finalFilePath))
                     {
                         try
                         {
                             await Functions.DownloadFileAsync(
                                 Saved.Site + game.Picture.ToString(),
-                                Saved.SaveLocation
-                                    + "Games\\Images\\"
-                                    + Path.GetFileName(game.Picture.ToString())
+                                tempFilePath
                             );
-                            game.Picture =
-                                Saved.SaveLocation
-                                + "Games\\Images\\"
-                                + Path.GetFileName(game.Picture.ToString());
+                            File.Move(tempFilePath, finalFilePath);
+                            game.Picture = finalFilePath;
                         }
                         catch
                         {
-                            game.Picture =
-                                Saved.SaveLocation + "/BetaManager;component/Resources/NoImage.png";
-                            ;
+                            game.Picture = "/BetaManager;component/Resources/NoImage.png";
                         }
                     }
                     else
-                        game.Picture =
-                            Saved.SaveLocation
-                            + "Games\\Images\\"
-                            + Path.GetFileName(game.Picture.ToString());
-                    await dis.InvokeAsync(() =>
                     {
-                        Instances.GamesViewModel.Games = games;
-                    });
+                        game.Picture = finalFilePath;
+                    }
                 }
                 new Thread(async () =>
                 {
@@ -1164,43 +1147,37 @@ namespace BetaManager
                             game.Screenshots[i] = "/BetaManager;component/Resources/NoImage.png";
                             continue;
                         }
-                        if (
-                            !File.Exists(
-                                Saved.SaveLocation
-                                    + "Games\\Images\\Screenshots\\"
-                                    + Path.GetFileName(image)
-                            )
-                        )
+                        string tempFilePath =
+                            Saved.SaveLocation
+                            + "Games\\Images\\Screenshots\\"
+                            + Path.GetRandomFileName();
+                        string finalFilePath =
+                            Saved.SaveLocation
+                            + "Games\\Images\\Screenshots\\"
+                            + Path.GetFileName(image);
+
+                        if (File.Exists(tempFilePath))
+                        {
+                            File.Delete(tempFilePath);
+                        }
+
+                        if (!File.Exists(finalFilePath))
                         {
                             try
                             {
-                                await Functions.DownloadFileAsync(
-                                    Saved.Site + image,
-                                    Saved.SaveLocation
-                                        + "Games\\Images\\Screenshots\\"
-                                        + Path.GetFileName(image)
-                                );
-                                game.Screenshots[i] = (
-                                    Saved.SaveLocation
-                                    + "Games\\Images\\Screenshots\\"
-                                    + Path.GetFileName(image)
-                                );
+                                await Functions.DownloadFileAsync(Saved.Site + image, tempFilePath);
+                                File.Move(tempFilePath, finalFilePath);
+                                game.Screenshots[i] = finalFilePath;
                             }
                             catch { }
                         }
                         else
-                            game.Screenshots[i] = (
-                                Saved.SaveLocation
-                                + "Games\\Images\\Screenshots\\"
-                                + Path.GetFileName(image)
-                            );
+                        {
+                            game.Screenshots[i] = finalFilePath;
+                        }
                     }
                 }).Start();
             }
-            await dis.InvokeAsync(() =>
-            {
-                list.Items.Refresh();
-            });
         }
 
         public static void AddAppToStartup(string name, string appPath)
@@ -1260,9 +1237,8 @@ namespace BetaManager
             catch { }
         }
 
-        public void LoadDownloadsFromXml()
+        public async void LoadDownloadsFromXml()
         {
-            /*
             try
             {
                 if (File.Exists(Saved.SaveLocation + "Downloads.xml"))
@@ -1277,27 +1253,26 @@ namespace BetaManager
                             select el;
                         foreach (XElement download in downloadsList)
                         {
+                            FitGirlGameModel fitGirlGameModel = await Auth.GetGame(
+                                download.Element("ID").Value
+                            );
                             DownloadClient downloadClient = new DownloadClient(
-                                download.Element("URL").Value,
-                                Boolean.Parse(download.Element("Torrent").Value),
+                                download.Element("Magnet").Value,
                                 download.Element("Path").Value,
+                                download.Element("Name").Value,
+                                fitGirlGameModel,
+                                Convert.ToInt64(download.Element("DownloadSize").Value),
                                 true
                             );
 
                             downloadClient.ID = download.Element("ID").Value;
                             downloadClient.Name = download.Element("Name").Value;
-                            downloadClient.Size = download.Element("Size").Value;
-                            downloadClient._pauseResumeButtonIcon = download
-                                .Element("ResumeButtonIcon")
-                                .Value;
-                            downloadClient.RequiredSpace = download.Element("RequiredSpace").Value;
-                            downloadClient.TotalSize = Convert.ToInt64(
-                                download.Element("TotalSize").Value
+                            downloadClient.DownloadSize = Convert.ToInt64(
+                                download.Element("DownloadSize").Value
                             );
                             downloadClient.BitSwarmFiles = JsonConvert.DeserializeObject<
                                 List<BitSwarmTorrentFile>
                             >(download.Element("Files").Value);
-                            downloadClient.RepackSize = download.Element("RepackSize").Value;
                             downloadClient.Path = download.Element("Path").Value;
                             downloadClient._PercentageToWidth = Double.Parse(
                                 download.Element("PercentageToWidth").Value
@@ -1315,36 +1290,9 @@ namespace BetaManager
                             downloadClient.DownloadCompleted += Instances
                                 .ManagerViewInstance
                                 .DownloadCompletedHandler;
-
-                            //Byte[] bindata;
-                            //MemoryStream ms = new MemoryStream();
-                            //bindata = (byte[])(
-                            //    Convert.FromBase64String((string)download.Element("Picture").Value)
-                            //);
-                            //ms.Write(bindata, 0, bindata.Length);
-                            //if (ms.Length > 0)
-                            //    downloadClient.Picture = new Functions().Bitmap2BitmapImage(
-                            //        new Bitmap(ms)
-                            //    );
                             downloadClient.Picture = (string)download.Element("Picture").Value;
 
-                            //DownloadManager.Instance.DownloadsList.Add( downloadClient );
-
-                            if (download.Element("State").Value == "Completed")
-                            {
-                                downloadClient.Status = DownloadStatus.Completed;
-                            }
-                            else
-                            {
-                                downloadClient.Status = DownloadStatus.Paused;
-                            }
-
-                            downloadClient.StatusText = download.Element("StateText").Value;
-
-                            downloadClient.AddedOn = DateTime.Parse(
-                                download.Element("AddedOn").Value
-                            );
-                            downloadClient._pauseResumeButtonIcon = "Resources/Icons/resume.svg";
+                            downloadClient.PauseResumeButtonIcon = "Resources/Icons/resume.svg";
 
                             DownloadManager.Instance.DownloadsList.Add(downloadClient);
                         }
@@ -1364,7 +1312,6 @@ namespace BetaManager
                 }
                 catch { }
             }
-            */
         }
 
         [DllImport("gdi32.dll")]

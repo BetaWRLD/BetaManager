@@ -261,7 +261,10 @@ namespace BetaManager.Views
             System.Windows.Input.MouseButtonEventArgs e
         )
         {
-            Functions.StartProccess("https://fitgirl-repacks.site/");
+            if (Saved.SelectedGame.Credits == "DODI")
+                Functions.StartProccess("https://dodi-repacks.site/");
+            else
+                Functions.StartProccess("https://fitgirl-repacks.site/");
         }
 
         private async Task<List<object>> GetComments()

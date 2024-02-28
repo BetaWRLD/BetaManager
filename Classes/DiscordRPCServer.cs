@@ -1,13 +1,18 @@
-﻿using DiscordRPC;
+﻿using System.Windows.Forms;
+using BetaManager.Models;
+using DiscordRPC;
+using Button = DiscordRPC.Button;
 
 namespace BetaManager.Classes
 {
     internal class DiscordRPCServer
     {
-        private string _version { get; set; }
-        private string _username { get; set; }
-        private string _state { get; set; }
-        public DiscordRpcClient Client { get; set; }
+        private static DiscordRpcClient Client { get; set; }
+
+        public bool isIntialized
+        {
+            get { return Client.IsInitialized; }
+        }
 
         private static RichPresence presence = new RichPresence()
         {
@@ -15,7 +20,7 @@ namespace BetaManager.Classes
             Assets = new Assets()
             {
                 LargeImageKey = "applogo",
-                LargeImageText = $"Version: 1.5.0-Beta",
+                LargeImageText = $"Version: {Application.ProductVersion}-Beta",
             },
             Buttons = new Button[]
             {
@@ -33,14 +38,29 @@ namespace BetaManager.Classes
             Client.SetPresence(RP ?? presence);
         }
 
+        public void UpdateState(string newState)
+        {
+            Client.UpdateState(newState);
+        }
+
+        public void Kill()
+        {
+            Client.ClearPresence();
+            Client.Dispose();
+        }
+
         public void LoggedIn()
         {
+            if (!SettingsModel.DiscordRPC)
+                return;
             Client.UpdateState(("@" + Saved.User?.Username) ?? "guest");
             Client.UpdateDetails("Chilling");
         }
 
         public void Start()
         {
+            if (!SettingsModel.DiscordRPC)
+                return;
             Client.Initialize();
             Client.SetPresence(presence);
         }

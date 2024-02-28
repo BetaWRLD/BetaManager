@@ -28,6 +28,15 @@ namespace BetaManager.ViewModels
                 OnPropertyChanged(nameof(StartSeedingOnCompleteChecked));
             }
         }
+        public bool DiscordRPCCheckBoxChecked
+        {
+            get { return SettingsModel.DiscordRPC; }
+            set
+            {
+                SettingsModel.DiscordRPC = value;
+                OnPropertyChanged(nameof(DiscordRPCCheckBoxChecked));
+            }
+        }
         public bool MinimizeOnGameLaunchChecked
         {
             get { return SettingsModel.MinimizeOnGameLaunch; }

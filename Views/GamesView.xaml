@@ -99,7 +99,7 @@
                             <ItemsControl
                                 x:Name="ListViewProducts"
                                 HorizontalAlignment="Center"
-                                ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged}">
+                                ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border

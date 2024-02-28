@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using BetaManager.Classes;
+using BetaManager.Downloader;
 using BetaManager.Models;
 using Newtonsoft.Json;
 
@@ -111,6 +112,13 @@ namespace BetaManager.Views
 
         private async void btnClose_Click(object sender, RoutedEventArgs e)
         {
+            if (DownloadManager.Instance.DownloadsList.Count > 0)
+            {
+                foreach (DownloadClient dC in DownloadManager.Instance.DownloadsList)
+                {
+                    dC.Pause();
+                }
+            }
             if (SettingsModel.CloseBehaviour == 1)
             {
                 MinimizeToTray();
@@ -463,6 +471,7 @@ namespace BetaManager.Views
                 Instances.MainViewModel.CurrentUserAccount = Saved.User;
                 new Functions().FadeOut(state, 350);
                 BlurFunc(1);
+                Instances.DiscordClient.LoggedIn();
                 return;
             }
             await new Functions().UpdateText(state, "Checking for any saved accounts here 🧐");
@@ -486,7 +495,7 @@ namespace BetaManager.Views
                         );
                         return;
                     }
-                    Instances.DiscordClient.Client.UpdateState("Sailing");
+                    Instances.DiscordClient.UpdateState("Sailing");
                     Instances.MainViewModel.LoginButtonVisibility = Visibility.Hidden;
                     Instances.MainViewModel.LoginButtonEnabled = false;
                     await new Functions().UpdateText(state, "Enjoy 😘");
@@ -688,6 +697,13 @@ namespace BetaManager.Views
 
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (DownloadManager.Instance.DownloadsList.Count > 0)
+            {
+                foreach (DownloadClient dC in DownloadManager.Instance.DownloadsList)
+                {
+                    dC.Pause();
+                }
+            }
             e.Cancel = true;
             await new Functions().FadeOut(this, 150);
             Hide();
@@ -726,6 +742,13 @@ namespace BetaManager.Views
 
         private void btnClose_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (DownloadManager.Instance.DownloadsList.Count > 0)
+            {
+                foreach (DownloadClient dC in DownloadManager.Instance.DownloadsList)
+                {
+                    dC.Pause();
+                }
+            }
             Process.GetCurrentProcess().Kill();
         }
 

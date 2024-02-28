@@ -45,11 +45,7 @@ namespace BetaManager.Views
                     ListViewProducts.Items.Refresh();
                     PicsThread = new Thread(async () =>
                     {
-                        new Functions().DownloadPicsAndScreenshots(
-                            products,
-                            ListViewProducts,
-                            this.Dispatcher
-                        );
+                        new Functions().DownloadPicsAndScreenshots(products);
                     });
                     PicsThread.Start();
                 }
@@ -250,11 +246,7 @@ namespace BetaManager.Views
                 ListViewProducts.Items.Refresh();
                 PicsThread = new Thread(async () =>
                 {
-                    new Functions().DownloadPicsAndScreenshots(
-                        products,
-                        ListViewProducts,
-                        this.Dispatcher
-                    );
+                    new Functions().DownloadPicsAndScreenshots(products);
                 });
                 PicsThread.Start();
             }
@@ -296,11 +288,7 @@ namespace BetaManager.Views
 
                     PicsThread = new Thread(async () =>
                     {
-                        new Functions().DownloadPicsAndScreenshots(
-                            products,
-                            ListViewProducts,
-                            this.Dispatcher
-                        );
+                        new Functions().DownloadPicsAndScreenshots(products);
                     });
                     PicsThread.Start();
                 }
@@ -334,11 +322,7 @@ namespace BetaManager.Views
 
                 PicsThread = new Thread(async () =>
                 {
-                    new Functions().DownloadPicsAndScreenshots(
-                        products,
-                        ListViewProducts,
-                        this.Dispatcher
-                    );
+                    new Functions().DownloadPicsAndScreenshots(products);
                 });
                 PicsThread.Start();
             }
@@ -377,11 +361,7 @@ namespace BetaManager.Views
 
                 PicsThread = new Thread(async () =>
                 {
-                    new Functions().DownloadPicsAndScreenshots(
-                        products,
-                        ListViewProducts,
-                        this.Dispatcher
-                    );
+                    new Functions().DownloadPicsAndScreenshots(products);
                 });
                 PicsThread.Start();
             }

@@ -262,6 +262,31 @@
                     </StackPanel>
                     <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
                         <CheckBox
+                            x:Name="DiscordRPCCheckBox"
+                            MinWidth="16"
+                            Background="Transparent"
+                            Click="DiscordRPCCheckBox_Click"
+                            IsChecked="{Binding DiscordRPCCheckBoxChecked}"
+                            Style="{DynamicResource RoundedCheckBoxStyle}">
+                            <TextBlock
+                                Margin="20,0,0,0"
+                                FontFamily="{DynamicResource Medium}"
+                                FontSize="16"
+                                Foreground="{DynamicResource ActiveText}"
+                                Text="Discord RPC" />
+                        </CheckBox>
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{DynamicResource Regular}"
+                            FontSize="11"
+                            Foreground="{DynamicResource titleColor1}"
+                            Opacity="0.50"
+                            Text="'You might need to restart BM for it to take effect.'"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                        <CheckBox
                             x:Name="StartSeedingOnComplete"
                             MinWidth="16"
                             Background="Transparent"

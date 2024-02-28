@@ -173,5 +173,15 @@ namespace BetaManager.Views.SettingsTabs
             }
             SettingsModel.RunOnStartup = (bool)OpenOnStartup.IsChecked;
         }
+
+        private void DiscordRPCCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (SettingsModel.DiscordRPC != true && Instances.DiscordClient.isIntialized)
+                Instances.DiscordClient.Kill();
+            else
+                (Instances.DiscordClient = new DiscordRPCServer()).Start();
+            Instances.DiscordClient.LoggedIn();
+            SettingsModel.DiscordRPC = (bool)DiscordRPCCheckBox.IsChecked;
+        }
     }
 }
